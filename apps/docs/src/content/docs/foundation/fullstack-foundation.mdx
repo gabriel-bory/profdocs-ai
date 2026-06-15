@@ -1,0 +1,34 @@
+---
+title: Full-Stack Foundation
+description: Initial Angular, NestJS and pnpm monorepo foundation.
+---
+
+# Full-Stack Foundation
+
+ProfDocs AI uses a monorepo structure with separate applications for the frontend, backend and documentation site.
+
+```text
+profdocs-ai/
+├── apps/
+│   ├── web/
+│   ├── api/
+│   └── docs/
+```
+
+## Applications
+
+| App | Technology | Purpose |
+| --- | --- | --- |
+| `apps/web` | Angular 21 | SaaS-style product frontend |
+| `apps/api` | NestJS | Backend REST API foundation |
+| `apps/docs` | Astro Starlight | Documentation as code site |
+
+## Verification
+
+The current full-stack foundation must pass:
+
+```bash
+pnpm build:api
+pnpm build:web
+pnpm build:docs
+```

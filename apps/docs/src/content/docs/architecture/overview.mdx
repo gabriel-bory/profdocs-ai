@@ -1,0 +1,36 @@
+---
+title: Architecture Overview
+description: High-level architecture for ProfDocs AI.
+---
+
+# Architecture Overview
+
+ProfDocs AI follows a modular full-stack architecture.
+
+```text
+Angular Web App
+    |
+    v
+NestJS API
+    |
+    v
+PostgreSQL 18
+```
+
+The documentation site is generated separately with Astro Starlight:
+
+```text
+Astro Starlight Docs
+    |
+    v
+Static documentation site
+```
+
+## Principles
+
+- Start small.
+- Keep modules clear.
+- Document decisions.
+- Avoid premature complexity.
+- Keep AI provider integration abstract.
+- Build incrementally.

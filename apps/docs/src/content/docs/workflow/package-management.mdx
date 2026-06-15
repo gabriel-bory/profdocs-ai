@@ -1,0 +1,42 @@
+---
+title: Package Management
+description: pnpm package management rules for the monorepo.
+---
+
+# Package Management
+
+ProfDocs AI uses **pnpm** as the official package manager.
+
+## Rules
+
+Use:
+
+```bash
+pnpm install
+pnpm add <package>
+pnpm add -D <package>
+pnpm exec <command>
+pnpm dlx <package>
+```
+
+Avoid:
+
+```bash
+npm install
+yarn
+```
+
+## Workspace
+
+The monorepo is defined in:
+
+```text
+pnpm-workspace.yaml
+```
+
+Initial packages:
+
+```yaml
+packages:
+  - "apps/*"
+```

@@ -77,6 +77,7 @@ profdocs-ai/
 ├── apps/
 │   ├── web/
 │   └── api/
+│   └── docs/
 ├── docs/
 │   ├── product-vision.md
 │   ├── architecture.md
@@ -101,6 +102,8 @@ profdocs-ai/
 - [Database Model](docs/database-model.md)
 - [Development Workflow](docs/development-workflow.md)
 - [Package Management](docs/package-management.md)
+- [Full-Stack Foundation](docs/fullstack-foundation.md)
+- [Documentation Site](docs/documentation-site.md)
 
 ## Author
 
