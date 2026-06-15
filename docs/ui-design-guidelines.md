@@ -1,0 +1,215 @@
+# UI Design Guidelines
+
+## Purpose
+
+This document defines the initial UI/UX direction for ProfDocs AI before implementing the Angular frontend interface.
+
+The goal is to create a professional, accessible and responsive SaaS-style interface for a document intelligence platform.
+
+## Design Principles
+
+ProfDocs AI should feel:
+
+- Professional
+- Trustworthy
+- Technical
+- Clean
+- Productive
+- Accessible
+- Modern without being visually overloaded
+
+The interface should prioritize clarity, source-based information, document status visibility and fast user orientation.
+
+## Visual Direction
+
+The product should follow a modern Material Design 3 inspired interface suitable for Angular Material implementation.
+
+The visual style should avoid excessive decoration, heavy gradients or futuristic effects. ProfDocs AI should look like a serious professional tool for document processing and AI-assisted knowledge workflows.
+
+## Color Direction
+
+Recommended color direction:
+
+- Primary: deep blue or indigo
+- Secondary: slate gray
+- Accent: subtle cyan or emerald
+- Light background: white or soft gray
+- Dark background: dark navy or charcoal
+- Success: green
+- Warning: amber
+- Error: red
+- Information/uploaded: blue
+
+Status must never rely on color alone. Use text labels and icons together with color.
+
+## Typography
+
+Typography should be readable, technical and professional.
+
+Recommended approach:
+
+- Strong headings for hierarchy
+- Clear body text
+- Monospace style for document previews, chunks or technical metadata
+- Comfortable line height
+- Avoid tiny labels and low-contrast text
+
+## Layout
+
+The product should use an authenticated SaaS dashboard layout.
+
+Desktop layout:
+
+- Top app bar
+- Persistent left sidebar
+- Main content area
+- Optional right-side contextual panel
+
+Tablet layout:
+
+- Collapsible sidebar
+- Two-column dashboard layout
+- Simplified tables
+
+Mobile layout:
+
+- Drawer or bottom navigation
+- Cards instead of dense tables
+- Stacked panels
+- Large touch targets
+
+## Main Navigation
+
+Initial navigation items:
+
+- Dashboard
+- Documents
+- Upload
+- AI Chat
+- Workspaces
+- Settings
+- Documentation
+
+## Core Screens
+
+### Dashboard
+
+The dashboard should include:
+
+- Total documents
+- Ready documents
+- Processing documents
+- Failed documents
+- Knowledge base readiness score
+- Recent documents
+- Recent activity
+- Upload document call-to-action
+
+### Document Library
+
+The document library should include:
+
+- Search
+- Filters by status
+- Sort controls
+- Desktop table view
+- Mobile card view
+- Status badges
+- Empty state
+- Upload call-to-action
+
+### Upload Document
+
+The upload screen should include:
+
+- Drag and drop upload area
+- Supported formats
+- Upload progress
+- Validation states
+- Processing timeline
+- Success and error states
+
+### Document Detail
+
+The document detail page should include:
+
+- Document metadata
+- Extracted content preview
+- Chunk preview
+- Processing status timeline
+- Future “Ask this document” call-to-action
+
+### Future RAG Chat
+
+The future RAG chat screen should include:
+
+- Chat interface
+- Selected document or workspace context
+- Source fragments
+- Cited answer area
+- Empty state when no document is selected
+
+## Accessibility Requirements
+
+The interface should follow these baseline accessibility requirements:
+
+- WCAG AA contrast target
+- Visible keyboard focus
+- Large touch targets
+- Clear form labels
+- No color-only status indicators
+- Readable typography
+- Semantic layout regions
+- Keyboard-friendly navigation
+
+## Gamification
+
+Gamification should be subtle and productivity-oriented.
+
+Recommended elements:
+
+- Knowledge base readiness score
+- Workspace completion checklist
+- Processing progress
+- First document uploaded badge
+- Knowledge base ready badge
+- Helpful empty states
+
+Gamification must not make the product feel childish or distracting.
+
+## Angular Material Implementation Direction
+
+The frontend should be implemented with Angular Material components where appropriate.
+
+Recommended components:
+
+- Toolbar
+- Sidenav
+- Card
+- Button
+- Icon button
+- Table
+- Chips
+- Progress bar
+- Progress spinner
+- Tabs
+- Form field
+- Input
+- Select
+- Dialog
+- Menu
+- Tooltip
+- Snack bar
+
+## Design Review Workflow
+
+AI-generated UI concepts from Stitch should be treated as design inspiration, not production-ready implementation.
+
+Before implementation, each design should be reviewed for:
+
+- Accessibility
+- Responsiveness
+- Navigation clarity
+- Angular Material feasibility
+- Consistency with ProfDocs AI product goals
+- Avoidance of unnecessary visual complexity
