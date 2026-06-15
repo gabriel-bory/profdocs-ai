@@ -57,6 +57,9 @@ AI, embeddings, pgvector search, document ingestion and RAG will be introduced i
 - Docker Compose
 - Environment-based configuration
 - GitHub project management
+- pnpm workspaces
+- Conventional Commits
+- Husky + Commitlint
 
 ### AI / RAG Roadmap
 
@@ -96,6 +99,8 @@ profdocs-ai/
 - [Architecture](docs/architecture.md)
 - [Roadmap](docs/roadmap.md)
 - [Database Model](docs/database-model.md)
+- [Development Workflow](docs/development-workflow.md)
+- [Package Management](docs/package-management.md)
 
 ## Author
 
