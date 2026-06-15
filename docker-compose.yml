@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: profdocs_ai_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: profdocs
+      POSTGRES_PASSWORD: profdocs_password
+      POSTGRES_DB: profdocs_ai
+    ports:
+      - "5432:5432"
+    volumes:
+      - profdocs_ai_postgres_data:/var/lib/postgresql
+
+volumes:
+  profdocs_ai_postgres_data:
