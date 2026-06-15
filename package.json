@@ -11,9 +11,11 @@
     "commitlint": "commitlint --from HEAD~1 --to HEAD --verbose",
     "dev:web": "pnpm --filter web start",
     "dev:api": "pnpm --filter api start:dev",
+    "dev:docs": "pnpm --filter docs dev",
     "build": "pnpm -r build",
     "build:web": "pnpm --filter web build",
-    "build:api": "pnpm --filter api build"
+    "build:api": "pnpm --filter api build",
+    "build:docs": "pnpm --filter docs build"
   },
   "keywords": [
     "angular",
