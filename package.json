@@ -8,7 +8,12 @@
   "packageManager": "pnpm@11.7.0",
   "scripts": {
     "prepare": "husky",
-    "commitlint": "commitlint --from HEAD~1 --to HEAD --verbose"
+    "commitlint": "commitlint --from HEAD~1 --to HEAD --verbose",
+    "dev:web": "pnpm --filter web start",
+    "dev:api": "pnpm --filter api start:dev",
+    "build": "pnpm -r build",
+    "build:web": "pnpm --filter web build",
+    "build:api": "pnpm --filter api build"
   },
   "keywords": [
     "angular",

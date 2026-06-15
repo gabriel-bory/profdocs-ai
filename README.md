@@ -101,6 +101,7 @@ profdocs-ai/
 - [Database Model](docs/database-model.md)
 - [Development Workflow](docs/development-workflow.md)
 - [Package Management](docs/package-management.md)
+- [Full-Stack Foundation](docs/fullstack-foundation.md)
 
 ## Author
 
