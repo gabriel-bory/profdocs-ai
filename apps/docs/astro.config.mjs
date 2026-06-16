@@ -53,6 +53,7 @@ export default defineConfig({
               label: "Package Management",
               slug: "workflow/package-management",
             },
+            { label: "CI Workflow", slug: "workflow/ci-workflow" },
           ],
         },
         {
