@@ -1,0 +1,202 @@
+---
+title: Stitch Design Review v1
+description: First design review of the Stitch-generated UI direction for ProfDocs AI.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Stitch Design Review v1
+
+<Aside type="caution" title="Design exploration, not implementation">
+The Stitch output is accepted as visual inspiration only. It should not be copied directly into the Angular application.
+</Aside>
+
+## Summary
+
+This page documents the first design review of the Stitch-generated UI concepts for **ProfDocs AI**.
+
+The review confirms that Stitch produced a strong professional SaaS direction, but the design must be translated into an accessible, maintainable, Angular Material-based implementation.
+
+## Main decision
+
+ProfDocs AI should use Stitch as a design exploration and then implement a controlled Angular Material MVP.
+
+The first UI implementation should focus on:
+
+- UI Shell.
+- Toolbar.
+- Desktop sidebar.
+- Mobile navigation.
+- Light/dark themes.
+- Dashboard mock.
+- Document Library mock.
+- Status chips.
+- Responsive layout.
+
+Real RAG, vectorization, semantic chunking, source citations and confidence scores are future product capabilities and should not be represented as implemented features yet.
+
+## What to keep
+
+| Element | Decision |
+| --- | --- |
+| Professional SaaS dashboard layout | Keep |
+| Light and dark mode | Keep |
+| Indigo / deep blue / slate identity | Keep |
+| Knowledge Base Readiness Score | Keep |
+| Document Library with status states | Keep |
+| Upload pipeline visualization | Keep as mock/preview |
+| Technical metadata styling | Keep |
+| RAG chat layout | Keep as future preview |
+| Mobile cards | Keep |
+
+## What to modify
+
+| Element | Required change |
+| --- | --- |
+| Chat RAG screens | Mark as Future Preview or Coming Soon |
+| Semantic chunks and confidence scores | Treat as mock/future data |
+| Mobile Document Library | Use cards and reduce density |
+| Status chips | Use icon + label, not color alone |
+| Spacing | Normalize around an 8px scale |
+| Dark mode text | Verify contrast for secondary text |
+| Light/dark/mobile consistency | Align content hierarchy |
+| Angular implementation | Rebuild with Angular Material components |
+
+## What to avoid
+
+- Do not copy generated Stitch code directly.
+- Do not implement real RAG in the first UI phase.
+- Do not add FastAPI, CrewAI, Neo4j, agents, webhooks or external automations.
+- Do not make the interface look like production AI processing already works.
+- Do not use color as the only status indicator.
+- Do not use dense tables on mobile.
+- Do not rely on heavy shadows for depth.
+
+## Accessibility requirements
+
+The UI implementation must prioritize:
+
+- Sufficient contrast in light and dark mode.
+- Visible focus states.
+- Keyboard navigation.
+- Mobile touch targets.
+- Labels and icons together for status indicators.
+- Clear empty states.
+- Legible secondary text in dark mode.
+- No color-only meaning.
+
+## Angular Material mapping
+
+| UI area | Angular Material components |
+| --- | --- |
+| App shell | `mat-sidenav`, `mat-toolbar` |
+| Navigation | `mat-nav-list`, `mat-icon`, `mat-button`, `mat-icon-button` |
+| Dashboard metrics | `mat-card`, `mat-progress-bar`, `mat-chip` |
+| Document Library | `mat-table`, `mat-form-field`, `mat-input`, `mat-select`, `mat-chip`, `mat-menu` |
+| Mobile document cards | `mat-card`, `mat-chip`, `mat-button`, `mat-menu` |
+| Upload preview | `mat-card`, `mat-progress-bar`, `mat-button`, `mat-snack-bar` |
+| Dialogs and confirmations | `mat-dialog` |
+| Tooltips | `mat-tooltip` |
+| Future RAG placeholder | `mat-card`, `mat-tabs`, custom layout CSS |
+
+## Recommended implementation phases
+
+### Phase 1 — UI Shell
+
+- App shell.
+- Desktop sidebar.
+- Top toolbar.
+- Theme toggle.
+- Responsive layout foundation.
+- Mobile navigation placeholder.
+- Basic routes.
+
+### Phase 2 — Dashboard mock
+
+- Total documents.
+- Ready documents.
+- Processing documents.
+- Failed documents.
+- Knowledge Base Readiness Score.
+- Recent documents.
+- First-user empty state.
+
+### Phase 3 — Document Library mock
+
+- Static mock document list.
+- Status chips.
+- Search input.
+- Status filter.
+- Desktop table.
+- Mobile cards.
+- View details placeholder.
+
+### Phase 4 — Upload Flow placeholder
+
+- Upload card.
+- Supported formats.
+- Mock upload queue.
+- Mock processing pipeline.
+- Success/error states as UI-only behavior.
+
+### Phase 5 — Future RAG placeholder
+
+- Future preview label.
+- Chat layout mock.
+- Source panel mock.
+- Selected document context.
+- Clear non-production messaging.
+
+## Minimum UI scope
+
+The minimum Angular implementation with the highest portfolio value and lowest technical risk is:
+
+- UI Shell.
+- Light/dark themes.
+- Dashboard mock.
+- Document Library mock.
+- Responsive desktop/mobile behavior.
+- Status chips and basic interaction states.
+
+This demonstrates architecture, product thinking and UI maturity without requiring real AI, ingestion, embeddings or vector search.
+
+## Stitch v2 follow-up
+
+After the first review, Stitch was asked to generate a cleaner v2 focused on an implementable Angular Material MVP.
+
+The v2 output is a better fit for the project because it introduces or reinforces:
+
+- Clearer separation between MVP screens and future AI/RAG capabilities.
+- Dedicated dashboard variants for light, dark and mobile.
+- Dedicated Document Library variants for light, dark and mobile.
+- Mobile card-based document lists instead of dense mobile tables.
+- AI Chat screens explicitly framed as a future preview.
+- Upload screens that can be treated as UI-only placeholders before real ingestion exists.
+- Stronger alignment with the planned implementation path: UI Shell, Dashboard mock, Document Library mock and Upload placeholder.
+
+### Accepted v2 improvements
+
+| Area | Decision |
+| --- | --- |
+| Dashboard | Use v2 as the preferred visual reference for the first Angular dashboard mock. |
+| Document Library | Use v2 as the preferred reference for desktop table and mobile card behavior. |
+| Mobile | Prefer the v2 mobile direction because it reduces table density and supports bottom navigation. |
+| AI Chat | Keep only as a Future Preview / Coming Soon screen. |
+| Upload | Keep as placeholder UI with mock progress, not real document processing. |
+| Theming | Preserve both light and dark mode as first-class requirements. |
+
+<Aside type="note" title="Implementation boundary">
+The v2 design improves the product direction, but the first Angular implementation must still use mocked/static data. Real RAG, embeddings, vector search, semantic chunks and source citations remain future backend capabilities.
+</Aside>
+
+### Final direction after v2
+
+The first Angular UI implementation should include:
+
+1. UI Shell.
+2. Light/dark theme system.
+3. Dashboard mock.
+4. Document Library mock.
+5. Responsive desktop/mobile layout.
+6. Upload placeholder.
+7. AI Chat placeholder marked as future preview.
