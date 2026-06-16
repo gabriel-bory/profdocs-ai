@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+﻿import { Component, computed, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,7 +26,7 @@ type StatusFilter = DocumentStatus | 'all';
     SkeletonBlockComponent,
   ],
   templateUrl: './document-library-page.html',
-  styleUrl: './document-library-page.css',
+  styleUrl: './document-library-page.scss',
 })
 export class DocumentLibraryPageComponent {
   protected readonly isLoading = signal(true);

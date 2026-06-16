@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+﻿import { Component, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
@@ -9,7 +9,7 @@ import { MetricCardComponent } from '../../ui/metric-card/metric-card';
   selector: 'app-dashboard-page',
   imports: [MatCardModule, MatProgressBarModule, MetricCardComponent, SkeletonBlockComponent],
   templateUrl: './dashboard-page.html',
-  styleUrl: './dashboard-page.css',
+  styleUrl: './dashboard-page.scss',
 })
 export class DashboardPageComponent {
   protected readonly isLoading = signal(true);

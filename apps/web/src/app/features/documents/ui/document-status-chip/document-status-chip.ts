@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+﻿import { Component, computed, input } from '@angular/core';
 
 import { DocumentStatus } from '../../models/document.model';
 
@@ -6,7 +6,7 @@ import { DocumentStatus } from '../../models/document.model';
   selector: 'app-document-status-chip',
   imports: [],
   templateUrl: './document-status-chip.html',
-  styleUrl: './document-status-chip.css',
+  styleUrl: './document-status-chip.scss',
 })
 export class DocumentStatusChipComponent {
   readonly status = input.required<DocumentStatus>();
@@ -27,11 +27,11 @@ export class DocumentStatusChipComponent {
   protected readonly icon = computed(() => {
     switch (this.status()) {
       case 'uploaded':
-        return '↑';
+        return 'â†‘';
       case 'processing':
-        return '…';
+        return 'â€¦';
       case 'ready':
-        return '✓';
+        return 'âœ“';
       case 'failed':
         return '!';
     }

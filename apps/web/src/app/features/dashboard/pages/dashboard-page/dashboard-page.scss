@@ -34,7 +34,7 @@
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(20rem, 0.65fr);
+  grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.65fr);
   gap: 1rem;
 }
 
@@ -42,6 +42,7 @@
 .activity-card,
 .skeleton-card,
 .skeleton-panel {
+  min-width: 0;
   border: 1px solid var(--pd-border);
   border-radius: 1.25rem;
   background: var(--pd-surface);
@@ -122,5 +123,33 @@
   .metrics-grid,
   .dashboard-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 360px) {
+  .section-heading h2 {
+    font-size: 1.35rem;
+  }
+
+  .section-note {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .readiness-card,
+  .activity-card,
+  .skeleton-card,
+  .skeleton-panel {
+    border-radius: 1rem;
+    padding: 0.875rem;
+  }
+
+  .readiness-card__header {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .readiness-card strong {
+    font-size: 2rem;
   }
 }

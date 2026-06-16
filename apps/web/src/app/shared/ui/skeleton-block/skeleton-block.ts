@@ -1,10 +1,10 @@
-import { Component, input } from '@angular/core';
+﻿import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-skeleton-block',
   imports: [],
   templateUrl: './skeleton-block.html',
-  styleUrl: './skeleton-block.css',
+  styleUrl: './skeleton-block.scss',
 })
 export class SkeletonBlockComponent {
   readonly width = input('100%');

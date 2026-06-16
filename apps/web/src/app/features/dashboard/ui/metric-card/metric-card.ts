@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+﻿import { Component, input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 
 type MetricTone = 'primary' | 'success' | 'warning' | 'danger';
@@ -7,7 +7,7 @@ type MetricTone = 'primary' | 'success' | 'warning' | 'danger';
   selector: 'app-metric-card',
   imports: [MatCardModule],
   templateUrl: './metric-card.html',
-  styleUrl: './metric-card.css',
+  styleUrl: './metric-card.scss',
 })
 export class MetricCardComponent {
   readonly label = input.required<string>();

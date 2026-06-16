@@ -1,5 +1,17 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
+/*
+  ProfDocs AI asset policy
+
+  - Do not load fonts, icons or UI assets from external CDNs in the app shell.
+  - Current MVP uses system fonts for speed and offline resilience.
+  - If a brand font is added later, place licensed .woff2 files under:
+    apps/web/public/assets/fonts/
+  - If icon assets are added later, place local SVGs under:
+    apps/web/public/assets/icons/
+  - Prefer inline SVG/local SVG registry over remote icon fonts.
+*/
+
 :root {
   color-scheme: light;
 
@@ -10,37 +22,37 @@
   --pd-surface: #ffffff;
   --pd-surface-strong: #eef2ff;
   --pd-text: #0f172a;
-  --pd-muted: #64748b;
-  --pd-border: #dbe4f0;
+  --pd-muted: #475569;
+  --pd-border: #d3deed;
 
   --pd-primary: #3949ab;
-  --pd-info: #2563eb;
-  --pd-success: #16a34a;
-  --pd-warning: #d97706;
-  --pd-danger: #dc2626;
+  --pd-info: #1d4ed8;
+  --pd-success: #15803d;
+  --pd-warning: #b45309;
+  --pd-danger: #b91c1c;
 
   --pd-skeleton-base: #e2e8f0;
-  --pd-skeleton-highlight: rgba(255, 255, 255, 0.68);
+  --pd-skeleton-highlight: rgba(255, 255, 255, 0.74);
 }
 
 :root[data-theme='dark'] {
   color-scheme: dark;
 
-  --pd-bg: #0a0e14;
+  --pd-bg: #080c12;
   --pd-surface: #111827;
-  --pd-surface-strong: #162033;
+  --pd-surface-strong: #182235;
   --pd-text: #f8fafc;
-  --pd-muted: #a8b3c7;
-  --pd-border: rgba(148, 163, 184, 0.24);
+  --pd-muted: #cbd5e1;
+  --pd-border: rgba(203, 213, 225, 0.26);
 
-  --pd-primary: #8ea2ff;
-  --pd-info: #7dd3fc;
+  --pd-primary: #a5b4fc;
+  --pd-info: #93c5fd;
   --pd-success: #86efac;
-  --pd-warning: #fbbf24;
+  --pd-warning: #fde68a;
   --pd-danger: #fca5a5;
 
   --pd-skeleton-base: #1f2937;
-  --pd-skeleton-highlight: rgba(148, 163, 184, 0.18);
+  --pd-skeleton-highlight: rgba(203, 213, 225, 0.18);
 }
 
 * {
@@ -50,9 +62,11 @@
 html {
   min-height: 100%;
   scroll-behavior: smooth;
+  text-size-adjust: 100%;
 }
 
 body {
+  min-width: 250px;
   min-height: 100%;
   margin: 0;
   background: var(--pd-bg);
@@ -72,8 +86,12 @@ a {
 }
 
 :focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--pd-primary) 72%, #ffffff);
+  outline: 3px solid color-mix(in srgb, var(--pd-primary) 82%, #ffffff);
   outline-offset: 3px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--pd-primary) 24%, transparent);
 }
 
 .sr-only {
@@ -97,4 +115,10 @@ a {
 .mat-mdc-stroked-button,
 .mat-mdc-flat-button {
   border-radius: 999px !important;
+}
+
+@media (max-width: 320px) {
+  body {
+    overflow-wrap: anywhere;
+  }
 }

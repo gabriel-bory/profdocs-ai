@@ -38,7 +38,7 @@
 }
 
 .table-card {
-  overflow: hidden;
+  overflow: auto;
   border: 1px solid var(--pd-border);
   border-radius: 1.25rem;
   background: var(--pd-surface);
@@ -48,6 +48,7 @@
 
 .documents-table {
   width: 100%;
+  min-width: 46rem;
   background: transparent;
 }
 
@@ -86,6 +87,7 @@
 
 .document-card {
   display: grid;
+  min-width: 0;
   gap: 1rem;
   border: 1px solid var(--pd-border);
   border-radius: 1.25rem;
@@ -101,9 +103,13 @@
   margin: 0;
 }
 
+.document-card h3 {
+  overflow-wrap: anywhere;
+}
+
 .document-card dl {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
   border-top: 1px solid var(--pd-border);
   padding-top: 1rem;
@@ -137,6 +143,7 @@
   display: grid;
   grid-template-columns: 0.7fr 2fr 1fr 0.8fr 0.7fr 1fr;
   gap: 1rem;
+  min-width: 46rem;
   padding: 0.875rem 0;
 }
 
@@ -167,11 +174,37 @@
   .skeleton-table__header,
   .skeleton-table__row {
     grid-template-columns: 1fr;
+    min-width: 0;
   }
 }
 
 @media (max-width: 560px) {
   .document-card dl {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 360px) {
+  .section-heading h2 {
+    font-size: 1.35rem;
+  }
+
+  .filters-card,
+  .table-card,
+  .document-card {
+    border-radius: 1rem;
+    padding: 0.875rem;
+  }
+
+  .section-heading button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 280px) {
+  .filters-card,
+  .table-card,
+  .document-card {
+    padding: 0.7rem;
   }
 }
