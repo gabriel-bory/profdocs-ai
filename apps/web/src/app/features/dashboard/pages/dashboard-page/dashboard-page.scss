@@ -1,0 +1,155 @@
+.dashboard-page {
+  display: grid;
+  gap: 1rem;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: end;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  letter-spacing: -0.04em;
+}
+
+.section-note {
+  width: fit-content;
+  border: 1px solid var(--pd-border);
+  border-radius: 999px;
+  color: var(--pd-muted);
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.65fr);
+  gap: 1rem;
+}
+
+.readiness-card,
+.activity-card,
+.skeleton-card,
+.skeleton-panel {
+  min-width: 0;
+  border: 1px solid var(--pd-border);
+  border-radius: 1.25rem;
+  background: var(--pd-surface);
+  color: var(--pd-text);
+  padding: 1rem;
+  box-shadow: none;
+}
+
+.skeleton-card,
+.skeleton-panel {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+}
+
+.skeleton-card {
+  min-height: 9rem;
+}
+
+.skeleton-panel {
+  min-height: 12rem;
+}
+
+.readiness-card__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.readiness-card h3,
+.activity-card h3 {
+  margin: 0;
+}
+
+.readiness-card strong {
+  color: var(--pd-primary);
+  font-size: 2.5rem;
+  letter-spacing: -0.06em;
+}
+
+.readiness-card p {
+  color: var(--pd-muted);
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+.activity-card ul {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.activity-card li {
+  border: 1px solid var(--pd-border);
+  border-radius: 1rem;
+  background: var(--pd-surface-strong);
+  color: var(--pd-muted);
+  padding: 0.875rem;
+}
+
+@media (max-width: 1100px) {
+  .metrics-grid,
+  .dashboard-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .section-heading {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .metrics-grid,
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .section-heading h2 {
+    font-size: 1.35rem;
+  }
+
+  .section-note {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .readiness-card,
+  .activity-card,
+  .skeleton-card,
+  .skeleton-panel {
+    border-radius: 1rem;
+    padding: 0.875rem;
+  }
+
+  .readiness-card__header {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .readiness-card strong {
+    font-size: 2rem;
+  }
+}

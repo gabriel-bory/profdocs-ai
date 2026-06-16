@@ -1,0 +1,10 @@
+<span
+  class="status-chip"
+  [class.status-chip--uploaded]="status() === 'uploaded'"
+  [class.status-chip--processing]="status() === 'processing'"
+  [class.status-chip--ready]="status() === 'ready'"
+  [class.status-chip--failed]="status() === 'failed'"
+>
+  <span class="status-chip__icon" aria-hidden="true">{{ icon() }}</span>
+  {{ label() }}
+</span>
