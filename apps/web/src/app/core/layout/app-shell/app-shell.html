@@ -1,0 +1,122 @@
+<mat-sidenav-container class="shell">
+  <mat-sidenav class="shell__sidenav" mode="side" opened>
+    <div class="brand">
+      <div class="brand__mark" aria-hidden="true">P</div>
+      <div>
+        <p class="brand__eyebrow">ProfDocs AI</p>
+        <h1>Document Intelligence</h1>
+      </div>
+    </div>
+
+    <nav class="side-nav" aria-label="Main navigation">
+      @for (item of navigationItems; track item.href) {
+        <a class="side-nav__link" [href]="item.href">
+          <span class="side-nav__marker">{{ item.marker }}</span>
+          <span>{{ item.label }}</span>
+        </a>
+      }
+    </nav>
+
+    <mat-divider></mat-divider>
+
+    <section class="sidenav-note" aria-label="Implementation status">
+      <p class="sidenav-note__label">MVP Scope</p>
+      <p>UI shell, dashboard mock and document library mock. Real RAG and ingestion remain future work.</p>
+    </section>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="shell__content">
+    <mat-toolbar class="topbar">
+      <div class="topbar__titles">
+        <span class="topbar__eyebrow">Professional Document Intelligence Platform</span>
+        <strong>ProfDocs AI Workspace</strong>
+      </div>
+
+      <span class="topbar__spacer"></span>
+
+      <a mat-button href="https://github.com/gabriel-bory/profdocs-ai" target="_blank" rel="noopener">
+        GitHub
+      </a>
+
+      <button
+        mat-stroked-button
+        type="button"
+        [attr.aria-pressed]="theme.isDark()"
+        (click)="toggleTheme()"
+      >
+        {{ theme.isDark() ? 'Light mode' : 'Dark mode' }}
+      </button>
+    </mat-toolbar>
+
+    <main class="workspace">
+      <section class="hero" aria-labelledby="workspace-title">
+        <div class="hero__content">
+          <p class="hero__eyebrow">MVP Visual Foundation</p>
+          <h2 id="workspace-title">Build a trusted document intelligence workspace.</h2>
+          <p>
+            This shell translates the Stitch design review into a realistic Angular Material
+            implementation with mocked data, accessible states and a clear future RAG boundary.
+          </p>
+        </div>
+
+        <div class="hero__panel" aria-label="Current implementation boundary">
+          <span class="hero__badge">Future AI features are preview only</span>
+          <p>No real embeddings, vector search, ingestion pipeline or grounded chat are implemented in this branch.</p>
+        </div>
+      </section>
+
+      <app-dashboard-page></app-dashboard-page>
+      <app-document-library-page></app-document-library-page>
+
+      <section id="upload-preview" class="placeholder-section" aria-labelledby="upload-title">
+        <div>
+          <p class="section-eyebrow">Upload Flow</p>
+          <h2 id="upload-title">Upload pipeline placeholder</h2>
+          <p>
+            The first UI version shows the future processing stages without implementing real
+            document ingestion yet.
+          </p>
+        </div>
+
+        <div class="pipeline-preview" aria-label="Mock processing pipeline">
+          <span>Upload</span>
+          <span>Scan</span>
+          <span>Extract</span>
+          <span>Index</span>
+          <span>Ready</span>
+        </div>
+      </section>
+
+      <section id="ai-preview" class="placeholder-section placeholder-section--dark" aria-labelledby="ai-title">
+        <div>
+          <p class="section-eyebrow">Future Preview</p>
+          <h2 id="ai-title">Grounded RAG chat placeholder</h2>
+          <p>
+            The chat experience will be implemented after document processing, source citations
+            and backend contracts are intentionally designed.
+          </p>
+        </div>
+
+        <div class="source-preview" aria-label="Mock source citations panel">
+          <span>Source fragments</span>
+          <span>Document context</span>
+          <span>Confidence notes</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <span>© 2026 Gabriel Bory Prevez. ProfDocs AI.</span>
+      <span>Released under the MIT License.</span>
+    </footer>
+
+    <nav class="bottom-nav" aria-label="Mobile navigation">
+      @for (item of navigationItems; track item.href) {
+        <a [href]="item.href">
+          <span>{{ item.marker }}</span>
+          {{ item.label }}
+        </a>
+      }
+    </nav>
+  </mat-sidenav-content>
+</mat-sidenav-container>

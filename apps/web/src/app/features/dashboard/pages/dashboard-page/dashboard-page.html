@@ -1,0 +1,80 @@
+<section id="dashboard" class="dashboard-page" aria-labelledby="dashboard-title">
+  <div class="section-heading">
+    <div>
+      <p class="section-eyebrow">Dashboard</p>
+      <h2 id="dashboard-title">Workspace overview</h2>
+    </div>
+    <span class="section-note">Mock data · No backend connected yet</span>
+  </div>
+
+  @if (isLoading()) {
+    <div class="dashboard-skeleton" role="status" aria-live="polite">
+      <span class="sr-only">Loading dashboard overview</span>
+
+      <div class="metrics-grid" aria-hidden="true">
+        @for (item of [1, 2, 3, 4]; track item) {
+          <mat-card class="skeleton-card">
+            <app-skeleton-block width="45%" height="0.75rem"></app-skeleton-block>
+            <app-skeleton-block width="35%" height="2.25rem" radius="0.5rem"></app-skeleton-block>
+            <app-skeleton-block width="85%" height="0.875rem"></app-skeleton-block>
+          </mat-card>
+        }
+      </div>
+
+      <div class="dashboard-grid" aria-hidden="true">
+        <mat-card class="skeleton-panel">
+          <app-skeleton-block width="30%" height="0.75rem"></app-skeleton-block>
+          <app-skeleton-block width="55%" height="1.25rem"></app-skeleton-block>
+          <app-skeleton-block width="100%" height="0.35rem" radius="999px"></app-skeleton-block>
+          <app-skeleton-block width="80%" height="0.875rem"></app-skeleton-block>
+          <app-skeleton-block width="62%" height="0.875rem"></app-skeleton-block>
+        </mat-card>
+
+        <mat-card class="skeleton-panel">
+          <app-skeleton-block width="40%" height="0.75rem"></app-skeleton-block>
+          <app-skeleton-block width="65%" height="1.25rem"></app-skeleton-block>
+          <app-skeleton-block width="100%" height="3.5rem"></app-skeleton-block>
+          <app-skeleton-block width="100%" height="3.5rem"></app-skeleton-block>
+        </mat-card>
+      </div>
+    </div>
+  } @else {
+    <div class="metrics-grid" aria-label="Document metrics">
+      @for (metric of metrics; track metric.label) {
+        <app-metric-card
+          [label]="metric.label"
+          [value]="metric.value"
+          [helper]="metric.helper"
+          [tone]="metric.tone"
+        ></app-metric-card>
+      }
+    </div>
+
+    <div class="dashboard-grid">
+      <mat-card class="readiness-card">
+        <div class="readiness-card__header">
+          <div>
+            <p class="section-eyebrow">Knowledge Base</p>
+            <h3>Readiness score</h3>
+          </div>
+          <strong>{{ readinessScore }}%</strong>
+        </div>
+        <mat-progress-bar mode="determinate" [value]="readinessScore"></mat-progress-bar>
+        <p>
+          A professional gamification signal that explains how complete the workspace is before
+          future AI features are enabled.
+        </p>
+      </mat-card>
+
+      <mat-card class="activity-card">
+        <p class="section-eyebrow">Recent activity</p>
+        <h3>System visibility</h3>
+        <ul>
+          @for (item of activity; track item) {
+            <li>{{ item }}</li>
+          }
+        </ul>
+      </mat-card>
+    </div>
+  }
+</section>
