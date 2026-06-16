@@ -33,6 +33,10 @@ export default defineConfig({
               label: "UI Design Guidelines",
               slug: "product/ui-design-guidelines",
             },
+            {
+              label: "Stitch Design Review v1",
+              slug: "product/stitch-design-review-v1",
+            },
           ],
         },
         {
