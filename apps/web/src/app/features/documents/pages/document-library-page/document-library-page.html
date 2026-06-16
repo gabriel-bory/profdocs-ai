@@ -9,128 +9,122 @@
       </p>
     </div>
 
-    <button mat-flat-button type="button">Upload document</button>
+    <button class="upload-action" mat-flat-button type="button">Upload document</button>
   </div>
 
   @if (isLoading()) {
-    <div class="documents-skeleton" role="status" aria-live="polite">
-      <span class="sr-only">Loading document library</span>
+  <div class="documents-skeleton" role="status" aria-live="polite">
+    <span class="sr-only">Loading document library</span>
 
-      <mat-card class="filters-card skeleton-filters" aria-hidden="true">
-        <app-skeleton-block height="3.5rem"></app-skeleton-block>
-        <app-skeleton-block height="3.5rem"></app-skeleton-block>
-      </mat-card>
+    <mat-card class="filters-card skeleton-filters" aria-hidden="true">
+      <app-skeleton-block height="3.5rem"></app-skeleton-block>
+      <app-skeleton-block height="3.5rem"></app-skeleton-block>
+    </mat-card>
 
-      <mat-card class="table-card skeleton-table" aria-hidden="true">
-        <div class="skeleton-table__header">
-          @for (item of [1, 2, 3, 4, 5, 6]; track item) {
-            <app-skeleton-block height="0.75rem"></app-skeleton-block>
-          }
-        </div>
-
-        @for (row of [1, 2, 3, 4]; track row) {
-          <div class="skeleton-table__row">
-            @for (column of [1, 2, 3, 4, 5, 6]; track column) {
-              <app-skeleton-block height="1rem"></app-skeleton-block>
-            }
-          </div>
+    <mat-card class="table-card skeleton-table" aria-hidden="true">
+      <div class="skeleton-table__header">
+        @for (item of [1, 2, 3, 4, 5, 6]; track item) {
+        <app-skeleton-block height="0.75rem"></app-skeleton-block>
         }
-      </mat-card>
-    </div>
-  } @else {
-    <mat-card class="filters-card">
-      <mat-form-field appearance="outline">
-        <mat-label>Search documents</mat-label>
-        <input
-          matInput
-          type="search"
-          [value]="query()"
-          placeholder="Search by name, ID or workspace"
-          (input)="updateQuery($any($event.target).value)"
-        />
-      </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Status</mat-label>
-        <mat-select [value]="statusFilter()" (selectionChange)="updateStatus($event.value)">
-          <mat-option value="all">All statuses</mat-option>
-          <mat-option value="uploaded">Uploaded</mat-option>
-          <mat-option value="processing">Processing</mat-option>
-          <mat-option value="ready">Ready</mat-option>
-          <mat-option value="failed">Failed</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-card>
-
-    <mat-card class="table-card desktop-table" aria-label="Documents table">
-      <table mat-table [dataSource]="filteredDocuments()" class="documents-table">
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef>ID</th>
-          <td mat-cell *matCellDef="let document" class="monospace">{{ document.id }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Document</th>
-          <td mat-cell *matCellDef="let document">
-            <strong>{{ document.name }}</strong>
-            <span>{{ document.owner }}</span>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef>Status</th>
-          <td mat-cell *matCellDef="let document">
-            <app-document-status-chip [status]="document.status"></app-document-status-chip>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="type">
-          <th mat-header-cell *matHeaderCellDef>Type</th>
-          <td mat-cell *matCellDef="let document">{{ document.type }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="chunks">
-          <th mat-header-cell *matHeaderCellDef>Chunks</th>
-          <td mat-cell *matCellDef="let document" class="monospace">{{ document.chunks }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="updatedAt">
-          <th mat-header-cell *matHeaderCellDef>Updated</th>
-          <td mat-cell *matCellDef="let document">{{ document.updatedAt }}</td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
-    </mat-card>
-
-    <div class="mobile-document-list" aria-label="Mobile document cards">
-      @for (document of filteredDocuments(); track document.id) {
-        <mat-card class="document-card">
-          <div>
-            <p class="monospace">{{ document.id }}</p>
-            <h3>{{ document.name }}</h3>
-            <span>{{ document.owner }}</span>
-          </div>
-
-          <app-document-status-chip [status]="document.status"></app-document-status-chip>
-
-          <dl>
-            <div>
-              <dt>Type</dt>
-              <dd>{{ document.type }}</dd>
-            </div>
-            <div>
-              <dt>Chunks</dt>
-              <dd>{{ document.chunks }}</dd>
-            </div>
-            <div>
-              <dt>Updated</dt>
-              <dd>{{ document.updatedAt }}</dd>
-            </div>
-          </dl>
-        </mat-card>
+      @for (row of [1, 2, 3, 4]; track row) {
+      <div class="skeleton-table__row">
+        @for (column of [1, 2, 3, 4, 5, 6]; track column) {
+        <app-skeleton-block height="1rem"></app-skeleton-block>
+        }
+      </div>
       }
-    </div>
+    </mat-card>
+  </div>
+  } @else {
+  <mat-card class="filters-card">
+    <mat-form-field appearance="outline">
+      <mat-label>Search documents</mat-label>
+      <input matInput type="search" [value]="query()" (input)="updateQuery($any($event.target).value)" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select [value]="statusFilter()" (selectionChange)="updateStatus($event.value)">
+        <mat-option value="all">All statuses</mat-option>
+        <mat-option value="uploaded">Uploaded</mat-option>
+        <mat-option value="processing">Processing</mat-option>
+        <mat-option value="ready">Ready</mat-option>
+        <mat-option value="failed">Failed</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-card>
+
+  <mat-card class="table-card desktop-table" aria-label="Documents table">
+    <table mat-table [dataSource]="filteredDocuments()" class="documents-table">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let document" class="monospace">{{ document.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Document</th>
+        <td mat-cell *matCellDef="let document">
+          <strong>{{ document.name }}</strong>
+          <span>{{ document.owner }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let document">
+          <app-document-status-chip [status]="document.status"></app-document-status-chip>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let document">{{ document.type }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="chunks">
+        <th mat-header-cell *matHeaderCellDef>Chunks</th>
+        <td mat-cell *matCellDef="let document" class="monospace">{{ document.chunks }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="updatedAt">
+        <th mat-header-cell *matHeaderCellDef>Updated</th>
+        <td mat-cell *matCellDef="let document">{{ document.updatedAt }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </mat-card>
+
+  <div class="mobile-document-list" aria-label="Mobile document cards">
+    @for (document of filteredDocuments(); track document.id) {
+    <mat-card class="document-card">
+      <div>
+        <p class="monospace">{{ document.id }}</p>
+        <h3>{{ document.name }}</h3>
+        <span>{{ document.owner }}</span>
+      </div>
+
+      <app-document-status-chip [status]="document.status"></app-document-status-chip>
+
+      <dl>
+        <div>
+          <dt>Type</dt>
+          <dd>{{ document.type }}</dd>
+        </div>
+        <div>
+          <dt>Chunks</dt>
+          <dd>{{ document.chunks }}</dd>
+        </div>
+        <div>
+          <dt>Updated</dt>
+          <dd>{{ document.updatedAt }}</dd>
+        </div>
+      </dl>
+    </mat-card>
+    }
+  </div>
   }
 </section>

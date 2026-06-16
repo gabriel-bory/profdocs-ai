@@ -1,4 +1,4 @@
-﻿import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -54,7 +54,8 @@ export class DocumentLibraryPageComponent {
   });
 
   constructor() {
-    window.setTimeout(() => this.isLoading.set(false), 1250);
+    const debugLoading = new URLSearchParams(window.location.search).get('debugLoading') === 'true';
+    window.setTimeout(() => this.isLoading.set(false), debugLoading ? 8000 : 1250);
   }
 
   protected updateQuery(value: string): void {

@@ -29,7 +29,7 @@
     <mat-toolbar class="topbar">
       <div class="topbar__titles">
         <span class="topbar__eyebrow">Professional Document Intelligence Platform</span>
-        <strong>ProfDocs AI Workspace</strong>
+        <strong>ProfDocs AI</strong>
       </div>
 
       <span class="topbar__spacer"></span>
@@ -39,12 +39,14 @@
       </a>
 
       <button
+        class="theme-toggle"
         mat-stroked-button
         type="button"
+        aria-label="Toggle color theme"
         [attr.aria-pressed]="theme.isDark()"
         (click)="toggleTheme()"
       >
-        {{ theme.isDark() ? 'Light mode' : 'Dark mode' }}
+        {{ theme.isDark() ? 'Light' : 'Dark' }}
       </button>
     </mat-toolbar>
 

@@ -22,6 +22,10 @@
   line-height: 1.7;
 }
 
+.upload-action {
+  white-space: nowrap;
+}
+
 .filters-card {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(12rem, 18rem);
@@ -184,9 +188,13 @@
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 420px) {
   .section-heading h2 {
     font-size: 1.35rem;
+  }
+
+  .upload-action {
+    width: 100%;
   }
 
   .filters-card,
@@ -195,13 +203,9 @@
     border-radius: 1rem;
     padding: 0.875rem;
   }
-
-  .section-heading button {
-    width: 100%;
-  }
 }
 
-@media (max-width: 280px) {
+@media (max-width: 300px) {
   .filters-card,
   .table-card,
   .document-card {

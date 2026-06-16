@@ -117,6 +117,40 @@ a {
   border-radius: 999px !important;
 }
 
+.mat-mdc-form-field {
+  --mdc-outlined-text-field-container-color: var(--pd-surface);
+  --mdc-outlined-text-field-input-text-color: var(--pd-text);
+  --mdc-outlined-text-field-label-text-color: var(--pd-muted);
+  --mdc-outlined-text-field-outline-color: var(--pd-border);
+  --mdc-outlined-text-field-hover-outline-color: var(--pd-primary);
+  --mdc-outlined-text-field-focus-outline-color: var(--pd-primary);
+  --mat-select-enabled-trigger-text-color: var(--pd-text);
+  --mat-select-enabled-arrow-color: var(--pd-muted);
+}
+
+.mat-mdc-text-field-wrapper {
+  background: var(--pd-surface);
+}
+
+:root[data-theme='dark'] {
+  .mat-mdc-text-field-wrapper {
+    background: var(--pd-surface-strong);
+  }
+
+  .mat-mdc-form-field input,
+  .mat-mdc-select-value,
+  .mat-mdc-select-arrow,
+  .mat-mdc-floating-label,
+  .mat-mdc-form-field-label {
+    color: var(--pd-text) !important;
+  }
+
+  .mat-mdc-form-field input::placeholder {
+    color: var(--pd-muted) !important;
+    opacity: 1;
+  }
+}
+
 @media (max-width: 320px) {
   body {
     overflow-wrap: anywhere;

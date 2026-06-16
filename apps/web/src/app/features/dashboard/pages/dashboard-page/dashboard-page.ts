@@ -1,4 +1,4 @@
-﻿import { Component, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
@@ -50,6 +50,7 @@ export class DashboardPageComponent {
   ];
 
   constructor() {
-    window.setTimeout(() => this.isLoading.set(false), 900);
+    const debugLoading = new URLSearchParams(window.location.search).get('debugLoading') === 'true';
+    window.setTimeout(() => this.isLoading.set(false), debugLoading ? 8000 : 900);
   }
 }
