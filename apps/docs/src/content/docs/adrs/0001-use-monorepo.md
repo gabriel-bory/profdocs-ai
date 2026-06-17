@@ -3,8 +3,6 @@ title: "ADR 0001: Use a Monorepo"
 description: Decision record for using a monorepo structure.
 ---
 
-# ADR 0001: Use a Monorepo
-
 ## Status
 
 Accepted

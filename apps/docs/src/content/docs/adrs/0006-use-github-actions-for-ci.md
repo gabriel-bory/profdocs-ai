@@ -3,8 +3,6 @@ title: "ADR 0006: Use GitHub Actions for CI"
 description: Decision record for using GitHub Actions as the initial CI platform.
 ---
 
-# ADR 0006: Use GitHub Actions for CI
-
 ## Status
 
 Accepted

@@ -3,8 +3,6 @@ title: "ADR 0004: Use Astro Starlight for Documentation"
 description: Decision record for the documentation site.
 ---
 
-# ADR 0004: Use Astro Starlight for Documentation
-
 ## Status
 
 Accepted

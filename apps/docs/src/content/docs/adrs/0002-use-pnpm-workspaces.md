@@ -3,8 +3,6 @@ title: "ADR 0002: Use pnpm Workspaces"
 description: Decision record for pnpm workspaces.
 ---
 
-# ADR 0002: Use pnpm Workspaces
-
 ## Status
 
 Accepted

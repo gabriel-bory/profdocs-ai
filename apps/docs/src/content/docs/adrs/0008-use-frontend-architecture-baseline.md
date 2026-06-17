@@ -3,8 +3,6 @@ title: "ADR 0008: Use Angular frontend architecture baseline"
 description: "Record the frontend architecture baseline for ProfDocs AI."
 ---
 
-# ADR 0008: Use Angular frontend architecture baseline
-
 ## Status
 
 Accepted

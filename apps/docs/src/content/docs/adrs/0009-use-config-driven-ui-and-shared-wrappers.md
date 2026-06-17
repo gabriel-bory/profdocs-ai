@@ -3,8 +3,6 @@ title: "ADR 0009: Use config-driven UI and shared wrappers"
 description: "Record the decision to use typed config-driven UI wrappers for repeated frontend views."
 ---
 
-# ADR 0009: Use config-driven UI and shared wrappers
-
 ## Status
 
 Accepted
