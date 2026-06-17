@@ -1,4 +1,4 @@
-﻿import { Component, computed, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 
 import { DocumentStatus } from '../../models/document.model';
 
@@ -27,11 +27,11 @@ export class DocumentStatusChipComponent {
   protected readonly icon = computed(() => {
     switch (this.status()) {
       case 'uploaded':
-        return 'â†‘';
+        return '↑';
       case 'processing':
-        return 'â€¦';
+        return '…';
       case 'ready':
-        return 'âœ“';
+        return '✓';
       case 'failed':
         return '!';
     }

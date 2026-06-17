@@ -1,3 +1,4 @@
+@use './styles/app-shell-layout';
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 /*
@@ -155,4 +156,139 @@ a {
   body {
     overflow-wrap: anywhere;
   }
+}
+
+/* Angular Material overlay theming.
+   Required because overlay panels are rendered outside component trees. */
+.cdk-overlay-container {
+  color: var(--pd-text);
+  font-family: var(--pd-font-sans);
+}
+
+:root[data-theme='dark'] .cdk-overlay-container .mat-mdc-select-panel {
+  border: 1px solid var(--pd-border);
+  background: var(--pd-surface);
+  color: var(--pd-text);
+  box-shadow: 0 1.25rem 3rem rgba(0, 0, 0, 0.42);
+}
+
+:root[data-theme='dark'] .cdk-overlay-container .mat-mdc-option {
+  color: var(--pd-text);
+}
+
+:root[data-theme='dark'] .cdk-overlay-container .mat-mdc-option .mdc-list-item__primary-text {
+  color: var(--pd-text);
+}
+
+:root[data-theme='dark'] .cdk-overlay-container .mat-mdc-option:hover,
+:root[data-theme='dark'] .cdk-overlay-container .mat-mdc-option.mdc-list-item--selected,
+:root[data-theme='dark'] .cdk-overlay-container .mat-mdc-option.mat-mdc-option-active {
+  background: var(--pd-surface-strong);
+}
+
+:root[data-theme='dark'] .cdk-overlay-container .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
+  color: var(--pd-primary);
+}
+
+/* ProfDocs AI presentation polish overrides: start */
+
+/* Angular Material overlays are rendered outside app-shell.
+   These overrides keep select panels consistent with ProfDocs AI dark mode. */
+:root[data-theme='dark'] .cdk-overlay-container .mat-mdc-select-panel {
+  --mat-select-panel-background-color: var(--pd-surface);
+  --mat-option-label-text-color: var(--pd-text);
+  --mat-option-selected-state-label-text-color: var(--pd-text);
+  --mat-option-selected-state-layer-color: var(--pd-surface-strong);
+  --mat-option-hover-state-layer-color: rgba(165, 180, 252, 0.12);
+  --mat-option-focus-state-layer-color: rgba(165, 180, 252, 0.16);
+
+  border: 1px solid var(--pd-border);
+  background: var(--pd-surface) !important;
+  color: var(--pd-text) !important;
+  box-shadow: 0 1.25rem 3rem rgba(0, 0, 0, 0.42);
+}
+
+:root[data-theme='dark'] .cdk-overlay-container .mat-mdc-option,
+:root[data-theme='dark'] .cdk-overlay-container .mat-mdc-option .mdc-list-item__primary-text {
+  color: var(--pd-text) !important;
+}
+
+:root[data-theme='dark'] .cdk-overlay-container .mat-mdc-option:hover,
+:root[data-theme='dark'] .cdk-overlay-container .mat-mdc-option.mat-mdc-option-active,
+:root[data-theme='dark'] .cdk-overlay-container .mat-mdc-option.mdc-list-item--selected {
+  background: var(--pd-surface-strong) !important;
+}
+
+:root[data-theme='dark'] .cdk-overlay-container .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
+  color: var(--pd-primary) !important;
+}
+
+/* In light mode, the future RAG preview should feel like an intentional AI preview,
+   not like an accidental dark-mode section inside the light theme. */
+:root:not([data-theme='dark']) app-shell .placeholder-section--dark {
+  background:
+    radial-gradient(circle at top left, rgba(57, 73, 171, 0.16), transparent 32rem),
+    linear-gradient(135deg, #eef2ff 0%, #f8fafc 52%, #e0f2fe 100%);
+  color: var(--pd-text);
+}
+
+:root:not([data-theme='dark']) app-shell .placeholder-section--dark p,
+:root:not([data-theme='dark']) app-shell .placeholder-section--dark .section-eyebrow {
+  color: var(--pd-muted);
+}
+
+:root:not([data-theme='dark']) app-shell .placeholder-section--dark .source-preview {
+  border-color: rgba(57, 73, 171, 0.18);
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--pd-text);
+}
+
+:root:not([data-theme='dark']) app-shell .placeholder-section--dark .source-preview span {
+  border-color: rgba(57, 73, 171, 0.22);
+  background: #ffffff;
+  color: var(--pd-text);
+}
+
+/* ProfDocs AI presentation polish overrides: end */
+
+/* ProfDocs AI select overlay panel.
+   mat-select panels are rendered in the CDK overlay container, outside app-shell. */
+html[data-theme='dark'] .profdocs-select-panel.mat-mdc-select-panel,
+html.dark-theme .profdocs-select-panel.mat-mdc-select-panel {
+  --mat-select-panel-background-color: var(--pd-surface);
+  --mat-option-label-text-color: var(--pd-text);
+  --mat-option-selected-state-label-text-color: var(--pd-text);
+  --mat-option-selected-state-layer-color: var(--pd-surface-strong);
+  --mat-option-hover-state-layer-color: rgba(165, 180, 252, 0.12);
+  --mat-option-focus-state-layer-color: rgba(165, 180, 252, 0.16);
+
+  border: 1px solid var(--pd-border);
+  background: var(--pd-surface) !important;
+  color: var(--pd-text) !important;
+  box-shadow: 0 1.25rem 3rem rgba(0, 0, 0, 0.42);
+}
+
+html[data-theme='dark'] .profdocs-select-panel .mat-mdc-option,
+html.dark-theme .profdocs-select-panel .mat-mdc-option {
+  background: var(--pd-surface) !important;
+  color: var(--pd-text) !important;
+}
+
+html[data-theme='dark'] .profdocs-select-panel .mat-mdc-option .mdc-list-item__primary-text,
+html.dark-theme .profdocs-select-panel .mat-mdc-option .mdc-list-item__primary-text {
+  color: var(--pd-text) !important;
+}
+
+html[data-theme='dark'] .profdocs-select-panel .mat-mdc-option:hover,
+html[data-theme='dark'] .profdocs-select-panel .mat-mdc-option.mat-mdc-option-active,
+html[data-theme='dark'] .profdocs-select-panel .mat-mdc-option.mdc-list-item--selected,
+html.dark-theme .profdocs-select-panel .mat-mdc-option:hover,
+html.dark-theme .profdocs-select-panel .mat-mdc-option.mat-mdc-option-active,
+html.dark-theme .profdocs-select-panel .mat-mdc-option.mdc-list-item--selected {
+  background: var(--pd-surface-strong) !important;
+}
+
+html[data-theme='dark'] .profdocs-select-panel .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after,
+html.dark-theme .profdocs-select-panel .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
+  color: var(--pd-primary) !important;
 }
