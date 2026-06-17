@@ -1,0 +1,254 @@
+---
+title: Config-Driven UI
+description: Config-driven page wrappers and parent orchestrator pattern for repeated frontend views.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Config-Driven UI
+
+## Purpose
+
+This document defines how ProfDocs AI should use typed configuration and shared wrappers for repeated UI patterns.
+
+The goal is to avoid duplicating list pages, filters, action toolbars, empty states, loading states and responsive collection layouts across future domains.
+
+<Aside type="caution" title="Avoid generic screen generators">
+Config-driven UI in ProfDocs AI must not become an unrestricted screen generator. It should be a typed, controlled pattern for repeated internal views.
+</Aside>
+
+## Core idea
+
+The architecture should separate responsibilities like this:
+
+```text
+Feature page / parent orchestrator
+  passes typed config + state
+  receives events
+  decides domain behavior
+
+Shared wrapper
+  renders common layout
+  emits typed events
+  remains business-agnostic
+
+Shared UI components
+  render small presentational pieces
+  use inputs and outputs
+```
+
+## Parent orchestrator
+
+Each domain page should act as a parent orchestrator.
+
+It may:
+
+- inject the feature store;
+- read the feature state;
+- pass typed config to a shared wrapper;
+- handle search, filter and action events;
+- perform navigation;
+- decide which domain action is allowed.
+
+It must not:
+
+- duplicate all shared table/card/filter rendering;
+- call backend logic from shared wrappers;
+- move domain rules into generic UI components;
+- evaluate config strings as executable logic.
+
+## Shared wrappers
+
+A shared wrapper is a reusable layout component.
+
+Possible wrappers:
+
+```text
+shared/shells/
+  config-driven-list-page/
+  config-driven-detail-page/
+  config-driven-form-page/
+```
+
+Recommended first wrapper:
+
+```text
+shared/shells/config-driven-list-page/
+```
+
+It should support:
+
+- page title;
+- description;
+- search field;
+- filters;
+- action toolbar;
+- responsive table/card rendering;
+- loading state;
+- empty state;
+- error state;
+- row actions;
+- global actions.
+
+## What to make config-driven now
+
+Recommended for the next implementation phase:
+
+- list page shell;
+- page header;
+- search;
+- status filter;
+- action toolbar;
+- responsive document collection;
+- empty state;
+- loading/skeleton state;
+- error state;
+- status chip rendering.
+
+## What to avoid for now
+
+Do not implement yet:
+
+- fully dynamic forms;
+- dynamic dashboards;
+- generic wizards;
+- remote JSON screen rendering;
+- arbitrary template execution;
+- universal CRUD generator.
+
+## Suggested types
+
+```ts
+export interface ListViewConfig<TItem, TActionId extends string = string> {
+  title: string;
+  description?: string;
+  search?: SearchConfig;
+  filters?: FilterConfig[];
+  columns: TableColumnConfig<TItem>[];
+  actions?: ActionConfig<TItem, TActionId>[];
+  emptyState?: EmptyStateConfig;
+  errorState?: ErrorStateConfig;
+  skeleton?: SkeletonConfig;
+}
+
+export interface TableColumnConfig<TItem> {
+  id: string;
+  label: string;
+  value: (item: TItem) => string | number | boolean | null | undefined;
+  description?: (item: TItem) => string | null | undefined;
+  variant?: 'text' | 'mono' | 'status' | 'date' | 'number';
+  visibleWhen?: (item: TItem) => boolean;
+}
+
+export interface ActionConfig<TItem, TActionId extends string = string> {
+  id: TActionId;
+  label: string;
+  icon?: string;
+  kind: 'row' | 'global';
+  visibleWhen?: (item: TItem) => boolean;
+  disabledWhen?: (item: TItem) => boolean;
+}
+
+export interface ListActionEvent<TItem, TActionId extends string = string> {
+  actionId: TActionId;
+  item?: TItem;
+}
+```
+
+## Documents example
+
+Future `documents` configuration may live here:
+
+```text
+features/documents/config/document-list.config.ts
+```
+
+Example:
+
+```ts
+type DocumentActionId = 'view' | 'retry' | 'remove';
+
+export const documentListConfig: ListViewConfig<DocumentModel, DocumentActionId> = {
+  title: 'Document Library',
+  description: 'Manage uploaded documents and future AI-ready sources.',
+  search: {
+    enabled: true,
+    placeholder: 'Search documents',
+  },
+  columns: [
+    {
+      id: 'id',
+      label: 'ID',
+      value: (document) => document.id,
+      variant: 'mono',
+    },
+    {
+      id: 'name',
+      label: 'Document',
+      value: (document) => document.name,
+      description: (document) => document.workspaceName,
+    },
+    {
+      id: 'status',
+      label: 'Status',
+      value: (document) => document.status,
+      variant: 'status',
+    },
+  ],
+  actions: [
+    {
+      id: 'view',
+      label: 'View',
+      kind: 'row',
+    },
+    {
+      id: 'retry',
+      label: 'Retry',
+      kind: 'row',
+      visibleWhen: (document) => document.status === 'failed',
+    },
+  ],
+};
+```
+
+## Security rules
+
+Config-driven UI must follow strict presentational security rules:
+
+- Config must be local TypeScript, not untrusted remote JSON.
+- Do not render arbitrary HTML from config.
+- Do not evaluate strings as functions.
+- Prefer typed action IDs over arbitrary callbacks for important domain actions.
+- UI visibility is not authorization.
+- Shared wrappers emit events; page orchestrators decide behavior.
+- Domain rules stay in features, stores or services.
+
+## Accessibility rules
+
+Shared wrappers must preserve:
+
+- semantic headings;
+- accessible table/card alternatives;
+- visible focus;
+- keyboard navigation;
+- form labels;
+- status text plus icon;
+- reduced motion support;
+- meaningful empty and error states.
+
+## Implementation path
+
+Recommended next branch:
+
+```text
+feat/web-config-driven-list-foundation
+```
+
+Scope:
+
+- create base config types;
+- create `ConfigDrivenListPageComponent`;
+- migrate part of Document Library into typed config;
+- keep mocked data;
+- avoid backend integration;
+- avoid SignalStore unless needed later.

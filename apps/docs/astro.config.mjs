@@ -43,6 +43,8 @@ export default defineConfig({
           label: "Architecture",
           items: [
             { label: "Architecture Overview", slug: "architecture/overview" },
+            { label: "Frontend Architecture", slug: "architecture/frontend-architecture" },
+            { label: "Config-Driven UI", slug: "architecture/config-driven-ui" },
             { label: "Database Model", slug: "architecture/database-model" },
           ],
         },

@@ -1,0 +1,307 @@
+---
+title: Frontend Architecture
+description: Angular frontend architecture guidelines for ProfDocs AI.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+# Frontend Architecture
+
+## Purpose
+
+This document defines the frontend architecture direction for the ProfDocs AI web application.
+
+It records the current Angular implementation approach and the next architectural rules before introducing real backend integration, authentication, ingestion workflows, vector search or RAG features.
+
+<Aside type="note" title="Current scope">
+The current web application is still an MVP visual foundation. Dashboard data, document data, upload flow and AI preview areas are mocked. Real ingestion, embeddings, vector search and grounded chat are intentionally out of scope for this stage.
+</Aside>
+
+## Current frontend baseline
+
+The current frontend baseline includes:
+
+- Angular 21.
+- Standalone components.
+- Angular Material/CDK.
+- SCSS.
+- Light/dark theme support.
+- Responsive app shell.
+- Desktop sidebar.
+- Mobile navigation.
+- Dashboard mock.
+- Document Library mock.
+- Upload placeholder.
+- Future RAG preview placeholder.
+- Theme persistence.
+- Smooth in-page navigation.
+- Responsive sidebar behavior.
+- Documentation as code through Astro Starlight.
+
+## Architectural principles
+
+ProfDocs AI should follow these frontend principles:
+
+1. Keep the MVP incremental.
+2. Prefer Angular standalone components.
+3. Use a clear feature-based structure.
+4. Keep pages as orchestrators.
+5. Keep UI components presentational.
+6. Avoid HTTP calls inside UI components.
+7. Avoid domain store injection inside shared UI wrappers.
+8. Use Angular Signals for local reactive state.
+9. Introduce NgRx SignalStore only when real domain state requires it.
+10. Keep SCSS organized around tokens, theme, layout and component-specific styles.
+11. Preserve accessibility and semantic HTML.
+12. Treat presentational security as part of the UI architecture.
+13. Avoid over-engineering and premature generic abstractions.
+
+## Recommended application structure
+
+The frontend should evolve toward this structure:
+
+```text
+apps/web/src/app/
+  core/
+    api/
+    config/
+    errors/
+    layout/
+    theme/
+
+  shared/
+    shells/
+    ui/
+    models/
+    utils/
+
+  features/
+    dashboard/
+      pages/
+      ui/
+      data-access/
+
+    documents/
+      pages/
+      config/
+      ui/
+      data-access/
+
+    upload/
+      pages/
+      ui/
+      data-access/
+
+    ai-preview/
+      pages/
+      ui/
+      data-access/
+```
+
+## Core
+
+`core` is for application-level services and infrastructure.
+
+Examples:
+
+```text
+core/
+  api/
+  config/
+  errors/
+  layout/
+  theme/
+```
+
+Rules:
+
+- `core` may contain singleton services.
+- `core` may contain HTTP infrastructure later.
+- `core` may contain shell/layout services.
+- `core` must not contain feature-specific business logic.
+
+## Shared
+
+`shared` is for reusable UI and utility code.
+
+Examples:
+
+```text
+shared/
+  shells/
+  ui/
+  models/
+  utils/
+```
+
+Rules:
+
+- Shared UI components must be business-agnostic.
+- Shared wrappers must not call HTTP.
+- Shared wrappers must not inject domain stores.
+- Shared components should use inputs and outputs.
+- Shared components should remain accessible and semantic.
+
+## Features
+
+`features` contains domain-specific application areas.
+
+Examples:
+
+```text
+features/documents/
+  pages/
+  config/
+  ui/
+  data-access/
+```
+
+Feature rules:
+
+- `pages` orchestrate the feature.
+- `ui` renders feature-specific presentational components.
+- `config` declares typed view configuration.
+- `data-access` owns models, DTOs, mappers, adapters, services and future stores.
+- Feature pages may inject stores and services.
+- Feature UI components should not directly call HTTP services.
+
+## Page components as orchestrators
+
+A page component is responsible for orchestration.
+
+It may:
+
+- inject a feature store;
+- read route parameters;
+- pass data to shared wrappers;
+- pass typed config to shared wrappers;
+- handle user events;
+- coordinate navigation;
+- decide which domain action should run.
+
+It should not:
+
+- duplicate low-level table, filter or card rendering;
+- contain large SCSS layout systems;
+- directly manipulate the DOM;
+- perform unsafe HTML rendering;
+- embed backend response parsing logic.
+
+## Presentational components
+
+Presentational components should:
+
+- render inputs;
+- emit outputs;
+- use semantic HTML;
+- preserve keyboard accessibility;
+- avoid HTTP calls;
+- avoid domain-specific state;
+- avoid direct DOM writes;
+- avoid unsafe `innerHTML`.
+
+## Data access direction
+
+When real backend integration is introduced, each feature should separate:
+
+```text
+document.model.ts
+document.dto.ts
+document.mapper.ts
+document.adapter.ts
+document.service.ts
+document.store.ts
+```
+
+Recommended responsibilities:
+
+| File | Responsibility |
+| --- | --- |
+| `*.model.ts` | UI/domain model used by components |
+| `*.dto.ts` | API-facing response/request shape |
+| `*.mapper.ts` | DTO to UI model transformation |
+| `*.adapter.ts` | Backend response normalization |
+| `*.service.ts` | HTTP calls only |
+| `*.store.ts` | Feature state and async workflows |
+
+## State management direction
+
+The initial direction is:
+
+1. Use local Angular Signals for simple UI state.
+2. Use computed signals for derived state.
+3. Use services only for infrastructure or HTTP.
+4. Avoid `BehaviorSubject` and `Subject` as primary UI state.
+5. Introduce NgRx SignalStore when documents, uploads or workspaces need real async state, caching, loading, errors and entity updates.
+6. Do not introduce NgRx Store, Effects or Router Store until the project has a clear need.
+
+## Styling direction
+
+The current shell refactor introduced:
+
+```text
+apps/web/src/styles/_app-shell-layout.scss
+```
+
+The next styling evolution should move toward:
+
+```text
+apps/web/src/styles/
+  _tokens.scss
+  _theme.scss
+  _material-overrides.scss
+  _layout.scss
+  _responsive.scss
+  _accessibility.scss
+  _utilities.scss
+```
+
+Rules:
+
+- Component SCSS should stay focused on component-specific styling.
+- Global SCSS should contain tokens, shell layout, Material overrides and truly global utilities.
+- Avoid broad global selectors not scoped to the application shell.
+- Avoid `::ng-deep` unless there is no safer alternative.
+- Material overlay styles may need global selectors because overlays render outside normal component trees.
+
+## Accessibility baseline
+
+Frontend work must preserve:
+
+- semantic landmarks;
+- accessible navigation labels;
+- visible focus states;
+- sufficient contrast;
+- large enough touch targets;
+- status icons plus labels, not color alone;
+- reduced motion support where animation or smooth scrolling is used;
+- keyboard-friendly navigation and controls.
+
+## Presentational security baseline
+
+Presentational security is part of the frontend architecture.
+
+Rules:
+
+- Do not render arbitrary HTML from configuration.
+- Avoid unsafe `innerHTML`.
+- Do not execute strings as logic.
+- Do not trust hidden or disabled UI as authorization.
+- Keep authorization enforcement on the backend when auth exists.
+- Use typed action identifiers for config-driven views.
+- Emit user events from shared wrappers; let the page orchestrator handle domain actions.
+- Avoid direct DOM manipulation through `ElementRef.nativeElement`.
+- Keep shared wrappers business-agnostic.
+
+## Roadmap
+
+Recommended next steps:
+
+1. Document architecture and ADRs.
+2. Create config-driven list foundation.
+3. Add lazy feature routing.
+4. Add API client foundation.
+5. Add documents data-access layer.
+6. Evaluate NgRx SignalStore.
+7. Add unit testing foundation.
+8. Add visual regression later, after the UI stabilizes.
