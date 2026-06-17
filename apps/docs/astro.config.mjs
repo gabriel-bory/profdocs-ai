@@ -1,7 +1,13 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
+const isGitHubPages = process.env.GITHUB_PAGES === "true";
+const githubPagesSite = "https://gabriel-bory.github.io";
+const githubPagesBase = "/profdocs-ai/docs";
+
 export default defineConfig({
+  site: isGitHubPages ? githubPagesSite : "http://localhost:4321",
+  base: isGitHubPages ? githubPagesBase : "/",
   integrations: [
     starlight({
       title: "ProfDocs AI Docs",
