@@ -3,8 +3,6 @@ title: "ADR 0003: Use Angular, NestJS and PostgreSQL"
 description: Decision record for the main full-stack architecture.
 ---
 
-# ADR 0003: Use Angular, NestJS and PostgreSQL
-
 ## Status
 
 Accepted

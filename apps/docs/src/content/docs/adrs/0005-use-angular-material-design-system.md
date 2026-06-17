@@ -3,8 +3,6 @@ title: "ADR 0005: Use Angular Material Design System"
 description: Decision record for using Angular Material as the main UI foundation.
 ---
 
-# ADR 0005: Use Angular Material Design System
-
 ## Status
 
 Accepted

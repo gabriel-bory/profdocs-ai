@@ -1,0 +1,283 @@
+/*
+  ProfDocs AI Starlight polish.
+
+  Strategy:
+  - Let Starlight keep ownership of Light / Dark / Auto.
+  - Do not replace the whole Starlight color system.
+  - Fix header contrast, theme selector visibility and content polish.
+  - Keep Astro ClientRouter transitions visible but professional.
+*/
+
+:root {
+  --sl-content-width: 54rem;
+  --sl-text-5xl: 3.05rem;
+  --sl-text-4xl: 2.25rem;
+  --sl-text-3xl: 1.75rem;
+
+  --sl-color-accent-low: #e8edff;
+  --sl-color-accent: #4f46e5;
+  --sl-color-accent-high: #1e1b4b;
+
+  --pd-docs-radius: 1rem;
+  --pd-docs-radius-sm: 0.65rem;
+  --pd-docs-border: rgba(100, 116, 139, 0.24);
+  --pd-docs-shadow: 0 16px 42px rgba(15, 23, 42, 0.08);
+  --pd-docs-gradient: linear-gradient(135deg, rgba(79, 70, 229, 0.12), rgba(14, 165, 233, 0.08));
+}
+
+:root[data-theme='dark'] {
+  --sl-color-accent-low: #172554;
+  --sl-color-accent: #a5b4fc;
+  --sl-color-accent-high: #eef2ff;
+
+  --pd-docs-border: rgba(148, 163, 184, 0.28);
+  --pd-docs-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  --pd-docs-gradient: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(14, 165, 233, 0.12));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  letter-spacing: -0.01em;
+}
+
+/* Header: force good contrast without changing the whole Starlight theme. */
+
+.header {
+  background: rgba(248, 250, 252, 0.96) !important;
+  border-bottom-color: var(--pd-docs-border) !important;
+  backdrop-filter: blur(16px);
+}
+
+:root[data-theme='dark'] .header {
+  background: rgba(15, 23, 42, 0.96) !important;
+}
+
+.site-title,
+.header .site-title {
+  color: #4f46e5 !important;
+  opacity: 1 !important;
+  font-weight: 850;
+  letter-spacing: -0.04em;
+}
+
+:root[data-theme='dark'] .site-title,
+:root[data-theme='dark'] .header .site-title {
+  color: #f8fafc !important;
+}
+
+/* Header controls: search, GitHub icon, theme select and mobile menu. */
+
+.header a,
+.header button,
+.header select,
+.header label,
+.header summary,
+.header svg {
+  color: #0f172a !important;
+  opacity: 1 !important;
+}
+
+:root[data-theme='dark'] .header a,
+:root[data-theme='dark'] .header button,
+:root[data-theme='dark'] .header select,
+:root[data-theme='dark'] .header label,
+:root[data-theme='dark'] .header summary,
+:root[data-theme='dark'] .header svg {
+  color: #f8fafc !important;
+  opacity: 1 !important;
+}
+
+.header button,
+.header select {
+  border-radius: 0.65rem !important;
+}
+
+.header select {
+  min-width: 5rem !important;
+  border: 1px solid var(--pd-docs-border) !important;
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
+
+.header select option {
+  color: #0f172a !important;
+  background: #ffffff !important;
+}
+
+:root[data-theme='dark'] .header select {
+  background: #111827 !important;
+  color: #f8fafc !important;
+}
+
+:root[data-theme='dark'] .header select option {
+  color: #f8fafc !important;
+  background: #111827 !important;
+}
+
+.header input,
+.header input::placeholder {
+  color: #0f172a !important;
+  opacity: 1 !important;
+}
+
+:root[data-theme='dark'] .header input,
+:root[data-theme='dark'] .header input::placeholder {
+  color: #f8fafc !important;
+}
+
+/* Sidebar and right outline. */
+
+.sidebar-pane {
+  border-right-color: var(--pd-docs-border) !important;
+}
+
+.right-sidebar {
+  border-left-color: var(--pd-docs-border) !important;
+}
+
+.sidebar-content a[aria-current='page'] {
+  font-weight: 800;
+  border-radius: 0.55rem;
+}
+
+/* Content hierarchy. */
+
+main[data-pagefind-body] {
+  view-transition-name: profdocs-page;
+}
+
+main[data-pagefind-body] h1 {
+  letter-spacing: -0.055em;
+}
+
+main[data-pagefind-body] h2,
+main[data-pagefind-body] h3 {
+  letter-spacing: -0.035em;
+}
+
+main[data-pagefind-body] a {
+  text-underline-offset: 0.18em;
+}
+
+/* Markdown surfaces. */
+
+main[data-pagefind-body] blockquote,
+main[data-pagefind-body] .sl-markdown-content aside,
+main[data-pagefind-body] .card {
+  border-radius: var(--pd-docs-radius);
+}
+
+.sl-markdown-content table {
+  overflow: hidden;
+  border-radius: var(--pd-docs-radius-sm);
+  box-shadow: 0 0 0 1px var(--pd-docs-border);
+}
+
+.sl-markdown-content thead {
+  background: var(--pd-docs-gradient);
+}
+
+/* Code blocks: keep light and dark readable. */
+
+.sl-markdown-content pre,
+.expressive-code pre,
+.expressive-code .frame {
+  border: 1px solid var(--pd-docs-border);
+  border-radius: var(--pd-docs-radius-sm);
+  box-shadow: var(--pd-docs-shadow);
+}
+
+:root[data-theme='dark'] .sl-markdown-content pre,
+:root[data-theme='dark'] pre.astro-code,
+:root[data-theme='dark'] .astro-code,
+:root[data-theme='dark'] .expressive-code pre {
+  background: #0b1220 !important;
+  color: #e5e7eb !important;
+}
+
+:root[data-theme='dark'] .sl-markdown-content code:not(pre code) {
+  background: rgba(148, 163, 184, 0.16);
+  color: #e5e7eb;
+}
+
+/* Pagination cards. */
+
+.pagination-links a {
+  border-radius: var(--pd-docs-radius);
+  box-shadow: var(--pd-docs-shadow);
+}
+
+/* Mobile readability. */
+
+@media (max-width: 50rem) {
+  :root {
+    --sl-text-5xl: 2.35rem;
+    --sl-text-4xl: 2rem;
+    --sl-text-3xl: 1.55rem;
+  }
+
+  main[data-pagefind-body] {
+    padding-inline: 0.25rem;
+  }
+
+  .sl-markdown-content table {
+    display: block;
+    overflow-x: auto;
+    white-space: normal;
+  }
+}
+
+/* Motion preferences. */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* Astro ClientRouter / SPA-like transitions. */
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(profdocs-page) {
+    animation: profdocs-page-out 180ms ease-out both;
+  }
+
+  ::view-transition-new(profdocs-page) {
+    animation: profdocs-page-in 240ms ease-out both;
+  }
+
+  @keyframes profdocs-page-out {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    to {
+      opacity: 0;
+      transform: translateY(0.35rem);
+    }
+  }
+
+  @keyframes profdocs-page-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.55rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

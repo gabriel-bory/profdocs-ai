@@ -6,6 +6,10 @@ export default defineConfig({
     starlight({
       title: "ProfDocs AI Docs",
       description: "Documentation as code for ProfDocs AI.",
+      customCss: ["./src/styles/profdocs-starlight.css"],
+      components: {
+        Head: "./src/components/starlight/Head.astro",
+      },
       social: [
         {
           icon: "github",
@@ -43,6 +47,8 @@ export default defineConfig({
           label: "Architecture",
           items: [
             { label: "Architecture Overview", slug: "architecture/overview" },
+            { label: "Frontend Architecture", slug: "architecture/frontend-architecture" },
+            { label: "Config-Driven UI", slug: "architecture/config-driven-ui" },
             { label: "Database Model", slug: "architecture/database-model" },
           ],
         },

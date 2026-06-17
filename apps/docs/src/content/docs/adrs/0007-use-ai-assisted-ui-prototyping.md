@@ -3,8 +3,6 @@ title: "ADR 0007: Use AI-assisted UI prototyping as design input"
 description: "Record the decision to use Stitch and NotebookLM as design research inputs, not as direct implementation sources."
 ---
 
-# ADR 0007: Use AI-assisted UI prototyping as design input
-
 ## Status
 
 Accepted
