@@ -46,7 +46,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Status</mat-label>
-      <mat-select [value]="statusFilter()" (selectionChange)="updateStatus($event.value)">
+      <mat-select [value]="statusFilter()" [panelClass]="'profdocs-select-panel'" (selectionChange)="updateStatus($event.value)">
         <mat-option value="all">All statuses</mat-option>
         <mat-option value="uploaded">Uploaded</mat-option>
         <mat-option value="processing">Processing</mat-option>

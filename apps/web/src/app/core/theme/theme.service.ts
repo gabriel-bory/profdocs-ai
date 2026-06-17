@@ -1,26 +1,65 @@
-import { computed, effect, Injectable, signal } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 
-type ThemeMode = 'light' | 'dark';
+export type ThemeMode = 'light' | 'dark';
+
+const THEME_STORAGE_KEY = 'profdocs-ai.theme';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ThemeService {
-  private readonly mode = signal<ThemeMode>('light');
+  private readonly document = inject(DOCUMENT);
+  private readonly mode = signal<ThemeMode>(this.getInitialTheme());
 
+  readonly theme = this.mode.asReadonly();
   readonly isDark = computed(() => this.mode() === 'dark');
-  readonly currentMode = computed(() => this.mode());
+  readonly toggleLabel = computed(() => (this.isDark() ? 'Light' : 'Dark'));
 
   constructor() {
     effect(() => {
-      const mode = this.mode();
+      const theme = this.mode();
+      const root = this.document.documentElement;
 
-      document.documentElement.dataset['theme'] = mode;
-      document.documentElement.classList.toggle('dark-theme', mode === 'dark');
+      root.dataset['theme'] = theme;
+      root.classList.toggle('dark-theme', theme === 'dark');
+      root.style.colorScheme = theme;
+
+      this.persistTheme(theme);
     });
   }
 
   toggleTheme(): void {
-    this.mode.update((mode) => (mode === 'dark' ? 'light' : 'dark'));
+    this.mode.update((current) => (current === 'dark' ? 'light' : 'dark'));
+  }
+
+  setTheme(theme: ThemeMode): void {
+    this.mode.set(theme);
+  }
+
+  private getInitialTheme(): ThemeMode {
+    const defaultView = this.document.defaultView;
+
+    try {
+      const storedTheme = defaultView?.localStorage.getItem(THEME_STORAGE_KEY);
+
+      if (storedTheme === 'light' || storedTheme === 'dark') {
+        return storedTheme;
+      }
+    } catch {
+      // Ignore storage access errors and fall back to system preference.
+    }
+
+    const prefersDark = defaultView?.matchMedia?.('(prefers-color-scheme: dark)').matches;
+
+    return prefersDark ? 'dark' : 'light';
+  }
+
+  private persistTheme(theme: ThemeMode): void {
+    try {
+      this.document.defaultView?.localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch {
+      // Ignore storage access errors. Theme still works for the current session.
+    }
   }
 }
