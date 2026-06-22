@@ -14,6 +14,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^21.0.2
         version: 21.0.2
+      '@playwright/test':
+        specifier: ^1.61.0
+        version: 1.61.0
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -110,10 +113,10 @@ importers:
     dependencies:
       '@astrojs/starlight':
         specifier: latest
-        version: 0.40.0(astro@6.4.7(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0))(typescript@6.0.3)
+        version: 0.40.0(astro@6.4.8(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0))(typescript@6.0.3)
       astro:
         specifier: latest
-        version: 6.4.7(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0)
+        version: 6.4.8(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0)
 
   apps/web:
     dependencies:
@@ -2098,6 +2101,11 @@ packages:
     resolution: {integrity: sha512-SEeaJLb3qBNF/OaXnaR1NmmBbFYk1zC0ZH/52fATcRPLFg/p791YrcyFFy44Bo9sLaGuSuLp5Q6axbb/O+v/RA==}
     engines: {node: ^14.18.0 || >=16.0.0}
 
+  '@playwright/test@1.61.0':
+    resolution: {integrity: sha512-cKA5B6lpFEMyMGjxF54QihfYpB4FkEGH+qZhtArDEG+wezQAJY8Pq6C7T1SjWz+FFzt3TbyoXBQYk/0292TdJA==}
+    engines: {node: '>=18'}
+    hasBin: true
+
   '@rolldown/binding-android-arm64@1.0.0-rc.4':
     resolution: {integrity: sha512-vRq9f4NzvbdZavhQbjkJBx7rRebDKYR9zHfO/Wg486+I7bSecdUapzCm5cyXoK+LHokTxgSq7A5baAXUZkIz0w==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -2993,8 +3001,8 @@ packages:
     peerDependencies:
       astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0 || ^6.0.0-beta
 
-  astro@6.4.7:
-    resolution: {integrity: sha512-5vsXx0H52u23Jpshs9tM81D03Tb3Oh2Vt2Zo0bpqjXN+njkAWjFyGjTfmWJLAcrCQd9Q+iWB1eqfhR1sZJEaUA==}
+  astro@6.4.8:
+    resolution: {integrity: sha512-KK5lX90uU9EeVaTjINyj3sy9/NFXVa59aowaqbWBDDKLXZh4rr7GwIaCFYVetE22MJtsCNFerQXn0vlCLmpP/Q==}
     engines: {node: '>=22.12.0', npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -3929,6 +3937,11 @@ packages:
 
   fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
+
+  fsevents@2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
 
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
@@ -5252,6 +5265,16 @@ packages:
   pkg-dir@4.2.0:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
+
+  playwright-core@1.61.0:
+    resolution: {integrity: sha512-caX7TrY3Ml6egyDX0WUcTHDxodl/b51y5wJOdCEA36QviK/s2g081hvmGs8eaE3DWb6NYZQ6BjO/QkNRPenoPA==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  playwright@1.61.0:
+    resolution: {integrity: sha512-Z+7BeeqQPRRzklHsVFP4KTGIyMxKUmfeRA4WisM6G3/XW6nwGeX6fX9qYaDa+CiUqpOkb2f6X3nar05R3kSuJQ==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   pluralize@8.0.0:
     resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
@@ -6866,13 +6889,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@6.0.3(astro@6.4.7(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0))':
+  '@astrojs/mdx@6.0.3(astro@6.4.8(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0))':
     dependencies:
       '@astrojs/internal-helpers': 0.10.0
       '@astrojs/markdown-remark': 7.2.0
       '@mdx-js/mdx': 3.1.1
       acorn: 8.17.0
-      astro: 6.4.7(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0)
+      astro: 6.4.8(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0)
       es-module-lexer: 2.1.0
       estree-util-visit: 2.0.0
       hast-util-to-html: 9.0.5
@@ -6896,17 +6919,17 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 4.3.6
 
-  '@astrojs/starlight@0.40.0(astro@6.4.7(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0))(typescript@6.0.3)':
+  '@astrojs/starlight@0.40.0(astro@6.4.8(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0))(typescript@6.0.3)':
     dependencies:
       '@astrojs/markdown-remark': 7.2.0
-      '@astrojs/mdx': 6.0.3(astro@6.4.7(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0))
+      '@astrojs/mdx': 6.0.3(astro@6.4.8(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0))
       '@astrojs/sitemap': 3.7.3
       '@pagefind/default-ui': 1.5.2
       '@types/hast': 3.0.4
       '@types/js-yaml': 4.0.9
       '@types/mdast': 4.0.4
-      astro: 6.4.7(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0)
-      astro-expressive-code: 0.43.1(astro@6.4.7(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0))
+      astro: 6.4.8(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0)
+      astro-expressive-code: 0.43.1(astro@6.4.8(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0))
       bcp-47: 2.1.0
       hast-util-from-html: 2.0.3
       hast-util-select: 6.0.4
@@ -8625,6 +8648,10 @@ snapshots:
 
   '@pkgr/core@0.3.6': {}
 
+  '@playwright/test@1.61.0':
+    dependencies:
+      playwright: 1.61.0
+
   '@rolldown/binding-android-arm64@1.0.0-rc.4':
     optional: true
 
@@ -9468,12 +9495,12 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro-expressive-code@0.43.1(astro@6.4.7(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0)):
+  astro-expressive-code@0.43.1(astro@6.4.8(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0)):
     dependencies:
-      astro: 6.4.7(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0)
+      astro: 6.4.8(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0)
       rehype-expressive-code: 0.43.1
 
-  astro@6.4.7(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0):
+  astro@6.4.8(@types/node@25.9.3)(jiti@2.6.1)(rollup@4.62.0)(sass@1.97.3)(terser@5.48.0):
     dependencies:
       '@astrojs/compiler': 4.0.0
       '@astrojs/internal-helpers': 0.10.0
@@ -10585,6 +10612,9 @@ snapshots:
   fs-monkey@1.1.0: {}
 
   fs.realpath@1.0.0: {}
+
+  fsevents@2.3.2:
+    optional: true
 
   fsevents@2.3.3:
     optional: true
@@ -12577,6 +12607,14 @@ snapshots:
   pkg-dir@4.2.0:
     dependencies:
       find-up: 4.1.0
+
+  playwright-core@1.61.0: {}
+
+  playwright@1.61.0:
+    dependencies:
+      playwright-core: 1.61.0
+    optionalDependencies:
+      fsevents: 2.3.2
 
   pluralize@8.0.0: {}
 
