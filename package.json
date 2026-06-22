@@ -15,7 +15,12 @@
     "build": "pnpm -r build",
     "build:web": "pnpm --filter web build",
     "build:api": "pnpm --filter api build",
-    "build:docs": "pnpm --filter docs build"
+    "build:docs": "pnpm --filter docs build",
+    "e2e": "playwright test -c apps/web/e2e/playwright.config.ts",
+    "e2e:ui": "playwright test -c apps/web/e2e/playwright.config.ts --ui",
+    "e2e:headed": "playwright test -c apps/web/e2e/playwright.config.ts --headed",
+    "e2e:manual": "playwright test -c apps/web/e2e/playwright.config.ts --grep @manual",
+    "e2e:report": "playwright show-report apps/web/e2e/playwright-report"
   },
   "keywords": [
     "angular",
@@ -32,6 +37,7 @@
   "devDependencies": {
     "@commitlint/cli": "^21.0.2",
     "@commitlint/config-conventional": "^21.0.2",
+    "@playwright/test": "^1.61.0",
     "husky": "^9.1.7"
   }
 }

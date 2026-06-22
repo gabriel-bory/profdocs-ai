@@ -77,3 +77,8 @@ playwright-report/
 
 # Misc
 .envrc
+
+apps/web/e2e/test-results/
+apps/web/e2e/playwright-report/
+apps/docs/src/assets/manual/*.png
+apps/docs/public/evidence/manual/*.png
