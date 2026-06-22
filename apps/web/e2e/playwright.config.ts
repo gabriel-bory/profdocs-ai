@@ -63,5 +63,13 @@ export default defineConfig({
         viewport: { width: 1440, height: 900 },
       },
     },
+    {
+      name: 'manual-mobile-chrome',
+      testMatch: /manual\/.*\.spec\.ts/,
+      use: {
+        ...devices['Pixel 7'],
+        ...chromeChannel,
+      },
+    },
   ],
 });

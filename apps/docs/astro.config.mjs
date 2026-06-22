@@ -48,7 +48,37 @@ export default defineConfig({
               slug: "product/stitch-design-review-v1",
             },
           ],
+        },        {
+          label: "User Manual",
+          items: [
+            {
+              label: "Overview",
+              slug: "user-manual/web-application",
+            },
+            {
+              label: "Dashboard",
+              slug: "user-manual/dashboard",
+            },
+            {
+              label: "Documents",
+              slug: "user-manual/documents",
+            },
+            {
+              label: "Upload",
+              slug: "user-manual/upload",
+            },
+            {
+              label: "AI Preview",
+              slug: "user-manual/ai-preview",
+            },
+            {
+              label: "Export guide",
+              slug: "user-manual/export-guide",
+            },
+
+          ],
         },
+
         {
           label: "Architecture",
           items: [
