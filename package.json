@@ -22,7 +22,9 @@
     "e2e:manual": "playwright test -c apps/web/e2e/playwright.config.ts --project=manual-chromium-desktop --project=manual-mobile-chrome",
     "e2e:report": "playwright show-report apps/web/e2e/playwright-report",
     "docs:manual:evidence": "pnpm e2e:manual",
-    "docs:manual:build": "pnpm docs:manual:evidence && pnpm build:docs"
+    "docs:manual:build": "pnpm docs:manual:evidence && pnpm build:docs",
+    "docs:manual:export": "node scripts/docs/export-user-manual.mjs",
+    "docs:manual:export:full": "pnpm docs:manual:build && pnpm docs:manual:export && pnpm build:docs"
   },
   "keywords": [
     "angular",
@@ -40,6 +42,7 @@
     "@commitlint/cli": "^21.0.2",
     "@commitlint/config-conventional": "^21.0.2",
     "@playwright/test": "^1.61.0",
+    "docx": "^9.7.1",
     "husky": "^9.1.7"
   }
 }
