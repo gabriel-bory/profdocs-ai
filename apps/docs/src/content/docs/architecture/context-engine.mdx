@@ -1,0 +1,315 @@
+---
+title: Context Engine
+description: Architecture study for the future ProfDocs AI Context Engine.
+---
+
+ProfDocs AI Context Engine is the proposed architecture line for evolving ProfDocs AI toward context-aware prompt orchestration, project-aware assistance, and future document intelligence.
+
+This page is an architecture study. It does not describe implemented AI/RAG functionality yet.
+
+## Current status
+
+ProfDocs AI currently provides a professional full-stack foundation with:
+
+- Angular web application shell.
+- NestJS API foundation.
+- Astro/Starlight documentation.
+- PostgreSQL and Docker Compose foundation.
+- Playwright-based visual evidence.
+- User manual documentation.
+- DOCX/PDF manual export workflow.
+- ADR-based decision records.
+- GitHub Actions and GitHub Pages workflow.
+
+The current product includes AI/RAG preview placeholders, but it does not yet implement real ingestion, embeddings, vector search, semantic search, or RAG.
+
+## Problem
+
+ProfDocs AI needs a future AI architecture that can grow without becoming expensive, unsafe, or overengineered.
+
+The system should eventually help users transform informal prompts into technical, project-aware instructions by using repository context, documentation, ADRs, roadmap information, and a controlled set of skills.
+
+The challenge is to design this foundation before adding real model providers, embeddings, agents, or RAG infrastructure.
+
+## Recommended decision
+
+Start with a free-first architecture called:
+
+```text
+ProfDocs AI Context Engine
+```
+
+Technical subtitle:
+
+```text
+A free-first context-aware prompt orchestration foundation for ProfDocs AI.
+```
+
+This name is intentionally broader than RAG. It allows the project to start with rules, skills, prompt templates, safe context retrieval, and mock providers before adding embeddings or real model calls.
+
+## Goals
+
+The Context Engine should eventually support:
+
+- Prompt intake.
+- Rule-based intent classification.
+- Skill selection.
+- Safe repository context retrieval.
+- Prompt rewriting.
+- Response planning.
+- Human approval before any action.
+- Feedback memory.
+- Future model provider integration.
+- Future embeddings and pgvector-based retrieval.
+
+## Non-goals
+
+The first phase must not implement:
+
+- Real RAG.
+- Real embeddings.
+- Autonomous agents.
+- CrewAI.
+- Neo4j.
+- LangChain or LlamaIndex as required dependencies.
+- GitHub API integration.
+- Command execution by AI.
+- Operating system automation.
+- Paid API dependency.
+- Multi-user AI workflows.
+
+## MVP Level 0: free, safe, no real AI
+
+The first version should work without external APIs or local models.
+
+Recommended components:
+
+```text
+User Prompt
+  -> Prompt Intake
+  -> Rule-based Intent Classifier
+  -> Skill Registry
+  -> Safe Context Policy
+  -> Repo Context Retriever
+  -> Prompt Rewriter
+  -> Response Planner
+  -> Human Approval Gate
+  -> Feedback Memory
+```
+
+### Prompt Intake
+
+Receives the user prompt and normalizes basic metadata such as language, expected output type, project area, and risk level.
+
+### Intent Classifier
+
+Classifies prompts using simple rules instead of an LLM.
+
+Example areas:
+
+- docs
+- frontend
+- backend
+- e2e
+- ci
+- architecture
+- security
+- ai-roadmap
+- github
+- unknown
+
+### Skill Registry
+
+Maintains a controlled list of available skills.
+
+Example skills:
+
+- Documentation planning.
+- ADR drafting.
+- Angular UI guidance.
+- NestJS backend guidance.
+- Playwright visual evidence guidance.
+- GitHub PR planning.
+- AI/RAG roadmap guidance.
+- Security review.
+
+### Safe Context Policy
+
+Defines what can and cannot be read.
+
+Allowed examples:
+
+- README files.
+- Documentation pages.
+- ADRs.
+- Roadmap files.
+- Package files.
+- Selected source files when explicitly allowed.
+
+Denied examples:
+
+- `.env`
+- `.env.*`
+- `node_modules`
+- `dist`
+- `.git`
+- `playwright-report`
+- `test-results`
+- secrets
+- credentials
+- generated temporary files
+
+### Repo Context Retriever
+
+Retrieves safe repository context only from allowed paths.
+
+The first version can use simple keyword matching and allowlists. It does not need vector search.
+
+### Prompt Rewriter
+
+Transforms informal prompts into clearer technical instructions.
+
+In Level 0, this should use templates and mock providers, not a real LLM.
+
+### Response Planner
+
+Produces a structured technical plan with:
+
+- Project area.
+- Suggested files.
+- Risks.
+- Validation commands.
+- Commit suggestion.
+- Next step.
+
+### Human Approval Gate
+
+The system may suggest commands, but it must not execute them automatically.
+
+Human approval is required before any action.
+
+### Feedback Memory
+
+Stores lightweight feedback about whether the selected skill, rewrite, or plan was useful.
+
+For the first phase, this can be documented conceptually before adding persistence.
+
+## MVP data policy
+
+The first phase should store little or nothing.
+
+Allowed future data:
+
+- Prompt metadata.
+- Detected intent.
+- Selected skill.
+- Context source IDs.
+- Prompt rewrite result.
+- User feedback.
+- Validation outcome.
+
+Data that should not be stored:
+
+- Secrets.
+- Credentials.
+- Raw `.env` content.
+- Private tokens.
+- Full unnecessary repository dumps.
+- Ignored/generated files.
+- Sensitive logs.
+
+## 30-day direction
+
+After the architecture study is accepted, the project can add a NestJS foundation with:
+
+- TypeScript contracts.
+- In-memory Skill Registry.
+- Rule-based Intent Classifier.
+- Mock LLM Provider.
+- Template-based Prompt Rewriter.
+- Unit tests.
+- Documentation.
+
+This still should not require real AI models.
+
+## 90-day direction
+
+A later phase can add:
+
+- Safe local Repo Context Retriever.
+- Feedback Memory.
+- Context audit logs.
+- Optional Ollama experiments.
+- Optional GitHub Models experiments if free access is available and verified.
+- First provider interfaces for LLMs and embeddings.
+
+## Future RAG direction
+
+Real RAG should wait until ProfDocs AI has:
+
+- Real document ingestion.
+- Text extraction.
+- Chunking.
+- Metadata persistence.
+- Evaluation examples.
+- PostgreSQL + pgvector integration.
+- Source-grounded answer generation.
+
+PostgreSQL + pgvector is the preferred future direction because PostgreSQL is already part of the ProfDocs AI architecture.
+
+## Research track
+
+The following technologies should remain research topics for now:
+
+- ChromaDB.
+- LangChain.
+- LlamaIndex.
+- CrewAI.
+- Neo4j.
+- GraphRAG.
+- MCP.
+- Local desktop agents.
+- Sandboxed execution environments.
+- Multi-agent orchestration.
+
+These may become useful later, but adding them now would increase complexity before ProfDocs AI has real ingestion and retrieval workflows.
+
+## Security model
+
+The Context Engine must follow these rules:
+
+- Retrieved repository context is untrusted.
+- Project files must not override system or developer instructions.
+- Secrets must never be indexed or sent to providers.
+- Generated commands must not run automatically.
+- Human approval is mandatory.
+- Context sources should be auditable.
+- Logs should avoid sensitive content.
+- External model providers must be optional and disabled by default.
+
+## Portfolio value
+
+This architecture adds professional value because it shows:
+
+- AI is being introduced responsibly.
+- The project is not claiming fake RAG functionality.
+- The architecture is cost-aware.
+- The repo documents security and privacy early.
+- The system can start with mocks and evolve gradually.
+- The roadmap is realistic and defensible.
+
+## Recommended first implementation after approval
+
+After this study is approved, the first implementation should be limited to contracts and tests:
+
+```text
+apps/api/src/ai/
+  prompt-intake/
+  intent-classifier/
+  skill-registry/
+  prompt-rewriter/
+  providers/
+  shared/
+```
+
+No real provider, no embeddings, and no RAG should be added in the first implementation PR.
