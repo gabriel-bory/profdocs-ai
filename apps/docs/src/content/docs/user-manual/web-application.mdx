@@ -1,0 +1,74 @@
+---
+title: Web application user manual
+description: User manual overview for the ProfDocs AI web application.
+---
+
+This manual explains the current ProfDocs AI web application and the main areas available in the MVP shell.
+
+ProfDocs AI is a professional document intelligence workspace designed to organize documents, prepare them for future ingestion, and present a clear foundation for AI-assisted document review. The current version focuses on the user interface foundation, responsive navigation, theme behavior, and documentation evidence generated from the real Angular application.
+
+![ProfDocs AI web application overview in light mode](/evidence/manual/dashboard-desktop-light.png)
+
+## What you can do here
+
+Use this manual to understand the main areas of the web application:
+
+- Review the workspace overview in the dashboard.
+- Explore the mock document library.
+- Understand the planned upload pipeline.
+- Review the AI preview area for the future grounded RAG experience.
+- See how the application adapts to desktop and mobile layouts.
+- Understand which features are part of the current MVP and which ones are planned for future iterations.
+
+## How to use this manual
+
+Read the manual section by section. Each page focuses on one user-facing area of the application and includes visual evidence generated with Playwright from the real Angular app.
+
+The screenshots are stored as documentation evidence in:
+
+```text
+apps/docs/public/evidence/manual
+```
+
+This keeps the manual aligned with the application UI and supports a documentation-as-code workflow.
+
+## Theme support
+
+ProfDocs AI supports both light and dark visual modes. The manual uses Playwright-generated evidence for both themes where it adds value, so reviewers can evaluate the UI foundation in different viewing conditions.
+
+![ProfDocs AI web application overview in dark mode](/evidence/manual/dashboard-desktop-dark.png)
+
+## Current MVP status
+
+The current MVP provides a professional frontend shell with:
+
+- A responsive application layout.
+- Desktop and mobile navigation.
+- Light and dark theme support.
+- A dashboard overview.
+- A mock document workspace.
+- Upload and AI preview placeholders.
+- Automated visual evidence generated with Playwright.
+
+The current MVP does not yet include real authentication, backend document ingestion, persistent document storage, or a connected AI/RAG backend.
+
+## Planned improvements
+
+Future versions of ProfDocs AI are expected to add:
+
+- Real document upload and ingestion.
+- Backend integration with NestJS.
+- Persistent storage with PostgreSQL.
+- Document processing status.
+- Grounded AI/RAG interactions.
+- Authentication and role-aware access.
+- More complete user workflows.
+- Exportable user documentation in Word and PDF formats.
+
+## Related sections
+
+- [Dashboard](../dashboard/)
+- [Documents](../documents/)
+- [Upload](../upload/)
+- [AI preview](../ai-preview/)
+- [Export guide](../export-guide/)

@@ -1,10 +1,14 @@
-import { expect, Page, test } from '@playwright/test';
+import { expect, Locator, Page, test } from '@playwright/test';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const manualAssetsDir = path.resolve('apps/docs/public/evidence/manual');
+const manualEvidenceDir = path.resolve('apps/docs/public/evidence/manual');
 
-async function prepareStableUi(page: Page): Promise<void> {
+function ensureManualEvidenceDir(): void {
+  fs.mkdirSync(manualEvidenceDir, { recursive: true });
+}
+
+async function prepareStableManualPage(page: Page): Promise<void> {
   await page.addStyleTag({
     content: `
       *, *::before, *::after {
@@ -18,28 +22,107 @@ async function prepareStableUi(page: Page): Promise<void> {
   });
 }
 
-test.describe('User manual screenshots @manual', () => {
-  test.setTimeout(90_000);
+async function setManualTheme(page: Page, theme: 'light' | 'dark'): Promise<void> {
+  await page.evaluate((selectedTheme) => {
+    document.documentElement.dataset['theme'] = selectedTheme;
+    document.documentElement.classList.toggle('dark-theme', selectedTheme === 'dark');
+    document.documentElement.classList.toggle('light-theme', selectedTheme === 'light');
+    window.localStorage.setItem('profdocs-theme', selectedTheme);
+  }, theme);
+}
+
+async function expectWorkspaceReady(page: Page): Promise<void> {
+  await expect(page.getByText('Build a trusted document intelligence workspace.')).toBeVisible();
+  await expect(page.getByText('Workspace overview')).toBeVisible();
+  await expect(page.getByText('Total documents')).toBeVisible();
+  await expect(page.getByText('128')).toBeVisible();
+}
+
+async function expectMockDocumentVisible(page: Page): Promise<void> {
+  const documentTitle = page
+    .locator('strong:visible, h3:visible')
+    .filter({ hasText: 'clinical-research-protocol.pdf' })
+    .first();
+
+  await expect(documentTitle).toBeVisible();
+}
+
+async function sectionById(page: Page, id: string, fallbackText: string): Promise<Locator> {
+  const byId = page.locator(`#${id}`).first();
+
+  if (await byId.count()) {
+    return byId;
+  }
+
+  return page.locator('section').filter({ hasText: fallbackText }).first();
+}
+
+async function captureSectionScreenshot(section: Locator, fileName: string): Promise<void> {
+  await expect(section).toBeVisible();
+  await section.scrollIntoViewIfNeeded();
+  await section.page().waitForTimeout(300);
+
+  await section.screenshot({
+    path: path.join(manualEvidenceDir, fileName),
+    animations: 'disabled',
+  });
+}
+
+test.describe('ProfDocs AI user manual visual evidence @manual', () => {
+  test.setTimeout(120_000);
 
   test.beforeAll(() => {
-    fs.mkdirSync(manualAssetsDir, { recursive: true });
+    ensureManualEvidenceDir();
   });
 
-  test('captures home workspace full page', async ({ page }, testInfo) => {
+  test.beforeEach(async ({ page }) => {
     await page.goto('/');
-    await prepareStableUi(page);
+    await prepareStableManualPage(page);
+    await expectWorkspaceReady(page);
+  });
 
-    const documentTitle = page
-      .locator('strong:visible, h3:visible')
-      .filter({ hasText: 'clinical-research-protocol.pdf' })
-      .first();
+  test('captures desktop user manual evidence', async ({ page }, testInfo) => {
+    test.skip(!testInfo.project.name.includes('desktop'), 'Desktop evidence only');
 
-    await expect(documentTitle).toBeVisible();
+    const dashboard = await sectionById(page, 'dashboard', 'Workspace overview');
+    const documents = await sectionById(page, 'documents', 'Mock document workspace');
+    const upload = await sectionById(page, 'upload', 'Upload pipeline placeholder');
+    const aiPreview = await sectionById(page, 'ai-preview', 'Grounded RAG chat placeholder');
 
-    await page.screenshot({
-      path: path.join(manualAssetsDir, `home-${testInfo.project.name}.png`),
-      fullPage: true,
-      animations: 'disabled',
-    });
+    await setManualTheme(page, 'light');
+    await captureSectionScreenshot(dashboard, 'dashboard-desktop-light.png');
+
+    await expectMockDocumentVisible(page);
+    await captureSectionScreenshot(documents, 'documents-desktop-light.png');
+
+    await expect(page.getByText('Upload pipeline placeholder')).toBeVisible();
+    await captureSectionScreenshot(upload, 'upload-desktop-light.png');
+
+    await expect(page.getByText('Grounded RAG chat placeholder')).toBeVisible();
+    await captureSectionScreenshot(aiPreview, 'ai-preview-desktop-light.png');
+
+    await setManualTheme(page, 'dark');
+    await captureSectionScreenshot(dashboard, 'dashboard-desktop-dark.png');
+
+    await expectMockDocumentVisible(page);
+    await captureSectionScreenshot(documents, 'documents-desktop-dark.png');
+
+    await expect(page.getByText('Upload pipeline placeholder')).toBeVisible();
+    await captureSectionScreenshot(upload, 'upload-desktop-dark.png');
+
+    await expect(page.getByText('Grounded RAG chat placeholder')).toBeVisible();
+    await captureSectionScreenshot(aiPreview, 'ai-preview-desktop-dark.png');
+  });
+
+  test('captures mobile user manual evidence', async ({ page }, testInfo) => {
+    test.skip(!testInfo.project.name.includes('mobile'), 'Mobile evidence only');
+
+    const dashboard = await sectionById(page, 'dashboard', 'Workspace overview');
+
+    await setManualTheme(page, 'light');
+    await captureSectionScreenshot(dashboard, 'dashboard-mobile-light.png');
+
+    await setManualTheme(page, 'dark');
+    await captureSectionScreenshot(dashboard, 'dashboard-mobile-dark.png');
   });
 });

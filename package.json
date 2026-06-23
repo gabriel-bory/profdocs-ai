@@ -19,8 +19,10 @@
     "e2e": "playwright test -c apps/web/e2e/playwright.config.ts",
     "e2e:ui": "playwright test -c apps/web/e2e/playwright.config.ts --ui",
     "e2e:headed": "playwright test -c apps/web/e2e/playwright.config.ts --headed",
-    "e2e:manual": "playwright test -c apps/web/e2e/playwright.config.ts --grep @manual",
-    "e2e:report": "playwright show-report apps/web/e2e/playwright-report"
+    "e2e:manual": "playwright test -c apps/web/e2e/playwright.config.ts --project=manual-chromium-desktop --project=manual-mobile-chrome",
+    "e2e:report": "playwright show-report apps/web/e2e/playwright-report",
+    "docs:manual:evidence": "pnpm e2e:manual",
+    "docs:manual:build": "pnpm docs:manual:evidence && pnpm build:docs"
   },
   "keywords": [
     "angular",

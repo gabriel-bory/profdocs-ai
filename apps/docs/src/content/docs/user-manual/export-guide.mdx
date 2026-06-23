@@ -1,0 +1,110 @@
+---
+title: Export guide
+description: Future Word and PDF export strategy for the ProfDocs AI user manual.
+---
+
+The Export guide explains how the ProfDocs AI user manual should be prepared for future Word and PDF generation.
+
+The current source of truth remains the Astro Starlight documentation. Word and PDF files should be generated later from the documentation source, not edited manually as separate copies.
+
+## What you can do here
+
+Use this guide to understand the future export strategy for the manual:
+
+- Keep the web manual as the canonical documentation source.
+- Prepare manual pages so they can later be converted to DOCX and PDF.
+- Keep screenshots in stable documentation evidence paths.
+- Avoid duplicating manual content across web, Word, and PDF versions.
+- Plan export outputs without implementing the exporter too early.
+
+## How to use this guide
+
+Use the Starlight manual as the primary version during active product development.
+
+When the manual content becomes stable, a future export workflow can convert the manual pages into downloadable files.
+
+The expected future export folder is:
+
+```text
+apps/docs/public/exports/
+```
+
+The expected future output files are:
+
+```text
+ProfDocs_AI_User_Manual.docx
+ProfDocs_AI_User_Manual.pdf
+```
+
+## Recommended export strategy
+
+The recommended strategy is:
+
+```text
+Astro Starlight MDX
+→ normalized Markdown
+→ DOCX
+→ PDF
+```
+
+This keeps the documentation maintainable because the team edits one source and generates other formats from it.
+
+## Content rules for export-ready pages
+
+Manual pages should follow these rules:
+
+- Use clear headings.
+- Keep sections self-contained.
+- Use stable screenshot paths.
+- Avoid interactive-only components in the core manual.
+- Avoid relying on web-only navigation to understand the content.
+- Clearly separate current MVP behavior from planned improvements.
+- Use descriptive image alt text.
+- Keep terminology consistent across pages.
+
+## Screenshot rules
+
+Screenshots used in the manual should stay in:
+
+```text
+apps/docs/public/evidence/manual/
+```
+
+They should be referenced with stable public paths:
+
+```md
+![Descriptive alt text](/evidence/manual/example.png)
+```
+
+This makes the images usable in Starlight now and easier to copy into DOCX/PDF exports later.
+
+## Current MVP status
+
+The current project includes:
+
+- A Starlight-based user manual.
+- Playwright-generated visual evidence.
+- Section-specific screenshots.
+- Light and dark mode evidence.
+- A manual structure that can later be exported.
+
+The project does not yet include an automated DOCX or PDF export script.
+
+## Planned improvements
+
+Future documentation work can include:
+
+- A dedicated export script.
+- A generated DOCX version of the user manual.
+- A generated PDF version of the user manual.
+- A downloadable exports folder in the documentation site.
+- A release workflow that publishes updated manual files.
+- Optional CI validation once the export workflow is stable.
+
+## Related sections
+
+- [Web application user manual](../web-application/)
+- [Dashboard](../dashboard/)
+- [Documents](../documents/)
+- [Upload](../upload/)
+- [AI preview](../ai-preview/)
