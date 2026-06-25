@@ -1,0 +1,122 @@
+---
+title: Cloud Free-Tier Strategy
+description: Free-first deployment strategy for ProfDocs AI.
+---
+
+# Cloud Free-Tier Strategy
+
+The **Cloud Free-Tier Strategy** defines how ProfDocs AI can evolve toward cloud deployment without creating hidden costs or requiring paid AI infrastructure.
+
+This page is an architecture study. It does not deploy backend cloud infrastructure.
+
+## Decision
+
+ProfDocs AI should keep **Level 0** as the default:
+
+```text
+Local development
+  + GitHub Pages
+  + GitHub Actions
+  + PostgreSQL Docker
+  + Mock Provider
+```
+
+Cloud services should remain optional until billing, quotas and regional availability are verified.
+
+## Level 0 — Current recommended path
+
+Level 0 should use:
+
+- GitHub Pages for documentation,
+- GitHub Actions for CI,
+- local `apps/api`,
+- local PostgreSQL 18 through Docker Compose,
+- Mock Provider only,
+- no cloud database,
+- no real model provider,
+- no always-on infrastructure.
+
+This is the safest and most portfolio-friendly foundation.
+
+## Level 1 — Optional free-tier experiments
+
+Level 1 may study:
+
+- GitHub Pages for static docs,
+- Azure Static Web Apps for static web/docs experiments,
+- Google Cloud Run for API container experiments only with strict billing controls,
+- Azure Functions only with strict billing controls,
+- Neon or Supabase only as demo database options if limits are acceptable.
+
+Level 1 must not become mandatory for local development.
+
+## Level 2 — Research compute
+
+Level 2 may study:
+
+- Oracle Cloud Always Free if verification, card requirements, region and capacity are viable,
+- Ollama experiments,
+- PostgreSQL + pgvector,
+- local embeddings,
+- ChromaDB as research,
+- Neo4j as research.
+
+Level 2 is not required for the MVP.
+
+## Not recommended as base
+
+Avoid using these as the required foundation:
+
+- expiring database free trials,
+- changing credit-based services,
+- providers requiring uncontrolled billing,
+- storage or model services that require paid tiers,
+- always-on services without alerts,
+- production RAG before local validation.
+
+## Cost controls
+
+Any cloud experiment should include:
+
+- billing alerts,
+- resource limits,
+- no background jobs by default,
+- no real provider calls by default,
+- no secrets in frontend,
+- no automatic deployment of paid resources,
+- teardown documentation,
+- local fallback.
+
+## Deployment decision table
+
+| Level | Hosting | API | Database | Provider | Recommendation |
+|---|---|---|---|---|---|
+| 0 | GitHub Pages | Local | Docker PostgreSQL | Mock | Default |
+| 1 | GitHub Pages / Azure Static Web Apps | Cloud Run / Functions only if controlled | Demo DB only | Mock | Optional |
+| 2 | Oracle Cloud research | Self-hosted research | PostgreSQL + pgvector future | Local/free research | Research |
+| 3 | Scalable cloud | Production API | Managed DB | Real providers | Long-term only |
+
+## Relationship to Universal Assistant vision
+
+The universal assistant architecture is not a deployment target for the current MVP.
+
+Research-only items include:
+
+- Ollama server,
+- CrewAI,
+- ChromaDB,
+- Neo4j,
+- ephemeral containers,
+- local desktop agent,
+- OS automation.
+
+## Acceptance criteria
+
+Cloud strategy is ready when:
+
+- Level 0 remains fully local/free,
+- optional cloud paths are documented,
+- hidden cost risks are identified,
+- provider boundaries are clear,
+- no paid API is required,
+- no backend cloud deployment is required to validate the repo.

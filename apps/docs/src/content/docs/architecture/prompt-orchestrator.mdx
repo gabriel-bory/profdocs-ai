@@ -1,0 +1,153 @@
+---
+title: Prompt Orchestrator
+description: Architecture study for future prompt orchestration in ProfDocs AI.
+---
+
+# Prompt Orchestrator
+
+The **Prompt Orchestrator** is the future component responsible for converting a user request into a safe, structured and reviewable response plan.
+
+This page documents the architecture only. It does not implement a real orchestrator or AI provider.
+
+## Purpose
+
+The Prompt Orchestrator should coordinate:
+
+```text
+Prompt Intake
+  -> Intent Classification
+  -> Stack Context
+  -> Skill Candidate Selection
+  -> Skill Safety Policy
+  -> Prompt Rewriting
+  -> Response Planning
+  -> Human Approval Gate
+```
+
+## Level 0 mode
+
+Level 0 should work without real AI.
+
+It can use:
+
+- predefined rules,
+- local skill manifests,
+- mock provider output,
+- test fixtures,
+- deterministic examples,
+- documentation-driven behavior.
+
+## Input concept
+
+A future request may include:
+
+```ts
+type PromptRequest = {
+  id: string;
+  userPrompt: string;
+  projectArea?: ProjectArea;
+  currentBranch?: string;
+  allowedSources?: string[];
+  deniedSources?: string[];
+  riskMode: "safe" | "review-required";
+};
+```
+
+## Intent concept
+
+A future intent result may include:
+
+```ts
+type PromptIntent = {
+  primaryArea: ProjectArea;
+  secondaryAreas: ProjectArea[];
+  confidence: number;
+  riskLevel: "low" | "medium" | "high";
+  rationale: string;
+};
+```
+
+## Rewrite result concept
+
+A future rewrite result may include:
+
+```ts
+type PromptRewriteResult = {
+  originalPrompt: string;
+  rewrittenPrompt: string;
+  assumptions: string[];
+  constraints: string[];
+  validationPlan: string[];
+  requiresHumanApproval: boolean;
+};
+```
+
+## Response plan concept
+
+A future plan may include:
+
+```ts
+type ResponsePlan = {
+  summary: string;
+  selectedSkillId: string;
+  contextSources: string[];
+  excludedSources: string[];
+  steps: string[];
+  validationCommands: string[];
+  suggestedCommitMessage: string;
+  suggestedPrTitle: string;
+  safetyNotes: string[];
+};
+```
+
+## Provider boundary
+
+The orchestrator must start with a **Mock Provider**.
+
+External providers should remain disabled by default.
+
+Future provider options may include:
+
+- local provider experiments,
+- Ollama research,
+- GitHub Models only if free access is verified,
+- Hugging Face only if limits are verified,
+- OpenAI-compatible providers as optional later.
+
+None of these should be required for Level 0.
+
+## Human Approval Gate
+
+The orchestrator may produce plans, but must not execute them.
+
+Required UI language:
+
+```text
+Suggested only
+Copy plan
+Review manually
+Human approval required
+No autonomous execution
+```
+
+Avoid:
+
+```text
+Execute
+Run
+Auto-apply
+Install
+Sync registry
+```
+
+## Acceptance criteria
+
+The Prompt Orchestrator architecture is ready for implementation when:
+
+- input contracts are documented,
+- output contracts are documented,
+- mock behavior is defined,
+- skill selection is explainable,
+- denied context is enforced conceptually,
+- no real provider is required,
+- Human Approval Gate is mandatory.

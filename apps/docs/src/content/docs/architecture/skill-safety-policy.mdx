@@ -1,0 +1,148 @@
+---
+title: Skill Safety Policy
+description: Safety policy for future ProfDocs AI skills and context-aware workflows.
+---
+
+# Skill Safety Policy
+
+The **Skill Safety Policy** defines what future skills are allowed to read, suggest and produce inside ProfDocs AI.
+
+This is a documentation and architecture page. It does not implement runtime enforcement yet.
+
+## Core rule
+
+```text
+A skill may suggest a plan, but it must not execute actions automatically.
+```
+
+Every future skill must pass through the **Human Approval Gate** before any user action.
+
+## Required boundaries
+
+A skill must:
+
+- declare allowed context,
+- declare denied context,
+- declare expected output,
+- declare validation commands as suggestions only,
+- declare risk level,
+- declare whether approval is required,
+- operate in Mock Provider mode by default.
+
+## Denied by default
+
+Skills must not access or rely on:
+
+```text
+.env
+.env.local
+.env.production
+private keys
+tokens
+credentials
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+temporary generated files
+ignored files
+```
+
+## No automatic execution
+
+Skills must not:
+
+- execute shell commands,
+- run scripts,
+- install dependencies,
+- create branches,
+- commit changes,
+- push to GitHub,
+- call external APIs,
+- enable model providers,
+- mutate files without review.
+
+## Remote skill policy
+
+Remote skills are out of scope for Level 0.
+
+Future remote skill support would require:
+
+- manual review,
+- source verification,
+- version pinning,
+- manifest validation,
+- hash verification,
+- lock file,
+- risk classification,
+- explicit approval.
+
+## Prompt injection protection
+
+The system must treat all retrieved context as untrusted.
+
+A skill must not allow document content, repository content or user-provided text to override:
+
+- system policy,
+- denied context rules,
+- approval requirements,
+- provider boundaries,
+- secret protection.
+
+## Output contract
+
+A safe skill output should contain:
+
+- summary,
+- selected context,
+- excluded context,
+- reasoning summary,
+- proposed plan,
+- suggested files to inspect,
+- suggested validation commands,
+- suggested commit message,
+- suggested PR title,
+- safety notes,
+- approval requirement.
+
+## Skill risk levels
+
+| Risk | Meaning | Example |
+|---|---|---|
+| Low | Documentation or planning only. | ADR review, docs planning. |
+| Medium | Suggests code-level changes but does not execute. | Angular architecture review. |
+| High | Could affect secrets, deployment, infrastructure or automation. | Cloud deployment planning, provider integration. |
+
+High-risk skills must be documentation-only until runtime safeguards exist.
+
+## Relationship to Human Approval Gate
+
+The Human Approval Gate is mandatory for any action-oriented suggestion.
+
+The UI may provide:
+
+- copy plan,
+- copy commands,
+- request safer version,
+- reject,
+- approve manually.
+
+It must not provide:
+
+- execute,
+- run,
+- auto-apply,
+- auto-install,
+- sync registry automatically.
+
+## Acceptance criteria
+
+The policy is ready when:
+
+- allowed and denied paths are explicit,
+- remote skills are excluded from Level 0,
+- scripts are excluded from Level 0,
+- Human Approval Gate remains mandatory,
+- prompt injection boundaries are documented,
+- context is treated as untrusted.
