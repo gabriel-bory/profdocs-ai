@@ -13,7 +13,7 @@
     "dev:api": "pnpm --filter api start:dev",
     "dev:docs": "pnpm --filter docs dev",
     "build": "pnpm -r build",
-    "build:web": "pnpm --filter web build",
+    "build:web": "pnpm build:shared && pnpm --filter web build",
     "build:api": "pnpm --filter api build",
     "build:docs": "pnpm --filter docs build",
     "e2e": "playwright test -c apps/web/e2e/playwright.config.ts",
