@@ -42,7 +42,8 @@ jobs:
         run: pnpm peers check
 
       - name: Build Angular web app for GitHub Pages
-        run: pnpm --dir apps/web exec ng build --base-href=/profdocs-ai/
+        run: pnpm build:shared
+          pnpm --dir apps/web exec ng build --base-href=/profdocs-ai/
 
       - name: Build Astro docs for GitHub Pages
         env:
