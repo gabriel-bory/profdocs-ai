@@ -111,6 +111,10 @@ export default defineConfig({
               slug: "architecture/prompt-orchestrator",
             },
             {
+              label: "Prompt Orchestrator Contracts",
+              slug: "architecture/prompt-orchestrator-contracts",
+            },
+            {
               label: "Cloud Free-Tier Strategy",
               slug: "architecture/cloud-free-tier-strategy",
             },
