@@ -51,6 +51,11 @@ export default defineConfig({
               label: "Context Engine UI Study",
               slug: "product/context-engine-ui-study-v1",
             },
+
+            {
+              label: "Assistant Evolution Roadmap",
+              slug: "product/assistant-evolution-roadmap",
+            },
           ],
         },        {
           label: "User Manual",
@@ -88,6 +93,27 @@ export default defineConfig({
           items: [
             { label: "Architecture Overview", slug: "architecture/overview" },
             { label: "Context Engine", slug: "architecture/context-engine" },
+
+            {
+              label: "Skill Registry",
+              slug: "architecture/skill-registry",
+            },
+            {
+              label: "Stack Detector",
+              slug: "architecture/stack-detector",
+            },
+            {
+              label: "Skill Safety Policy",
+              slug: "architecture/skill-safety-policy",
+            },
+            {
+              label: "Prompt Orchestrator",
+              slug: "architecture/prompt-orchestrator",
+            },
+            {
+              label: "Cloud Free-Tier Strategy",
+              slug: "architecture/cloud-free-tier-strategy",
+            },
             { label: "Frontend Architecture", slug: "architecture/frontend-architecture" },
             { label: "Config-Driven UI", slug: "architecture/config-driven-ui" },
             { label: "Database Model", slug: "architecture/database-model" },

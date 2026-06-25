@@ -1,0 +1,166 @@
+---
+title: Secure Local Skill Registry
+description: Architecture study for a safe, local-first Skill Registry in ProfDocs AI.
+---
+
+# Secure Local Skill Registry
+
+The **ProfDocs AI Skill Registry** is a future architecture component for selecting safe, project-aware workflows without relying on real AI providers, remote skill installation, or autonomous execution.
+
+This page documents the architecture direction only. It does **not** implement real agent skills, external skill installation, scripts, shell execution, CrewAI, MCP, or autonomous agents.
+
+## Decision
+
+ProfDocs AI should start with a **local, curated, rule-based Skill Registry** before adopting any external skill ecosystem.
+
+Recommended foundation:
+
+```text
+Project Stack Detector
+  -> Local Skill Registry
+  -> Skill Manifest
+  -> Skill Candidate Selector
+  -> Skill Safety Policy
+  -> Prompt Orchestrator
+  -> Human Approval Gate
+  -> Mock Provider
+  -> Feedback Memory mock
+```
+
+## Why this matters
+
+Skill-based systems can improve assistant quality because they allow the product to select more precise instructions, workflows and validation expectations for a specific request.
+
+However, skills also create risks:
+
+- supply-chain risk if installed from remote registries,
+- prompt injection if skill instructions are blindly trusted,
+- secret exposure if skills can read unsafe files,
+- unsafe execution if skills contain scripts,
+- overclaiming if UI suggests agents are running before they exist.
+
+ProfDocs AI should adopt the useful pattern without adopting unsafe behavior.
+
+## Level 0 scope
+
+Level 0 does not require real AI.
+
+It can be designed with:
+
+- local skill definitions,
+- deterministic rules,
+- mock provider responses,
+- TypeScript contracts later,
+- documentation,
+- tests,
+- explicit allowed and denied context,
+- manual approval only.
+
+## Suggested local skills
+
+Initial Level 0 skills:
+
+| Skill ID | Purpose |
+|---|---|
+| `angular-material-ui-review` | Review Angular/Material UI planning and design decisions. |
+| `nestjs-api-architecture-review` | Review NestJS module/API architecture planning. |
+| `starlight-docs-review` | Review Astro/Starlight documentation structure and content. |
+| `playwright-evidence-review` | Review Playwright evidence workflows and screenshot documentation. |
+| `context-engine-safety-review` | Review context boundaries, prompt injection risk and approval gates. |
+| `free-tier-deployment-review` | Review free-tier deployment options and cost boundaries. |
+
+## Skill Manifest concept
+
+A future skill manifest should be small, inspectable and versioned.
+
+Conceptual shape:
+
+```ts
+type SkillManifest = {
+  id: string;
+  name: string;
+  version: string;
+  description: string;
+  projectAreas: ProjectArea[];
+  triggers: string[];
+  allowedContext: ContextRule[];
+  deniedContext: ContextRule[];
+  outputContract: string;
+  validationCommands: string[];
+  riskLevel: "low" | "medium" | "high";
+  requiresHumanApproval: boolean;
+  providerMode: "mock" | "future-provider";
+};
+```
+
+## Required metadata
+
+Every skill should define:
+
+- stable ID,
+- version,
+- description,
+- triggers,
+- allowed context,
+- denied context,
+- expected output,
+- validation commands,
+- risk level,
+- approval requirement,
+- provider mode.
+
+## What a skill must not do
+
+A Level 0 skill must not:
+
+- install dependencies,
+- download remote files,
+- execute scripts,
+- read `.env`,
+- read private keys,
+- read ignored/generated folders by default,
+- call external model providers,
+- mutate files automatically,
+- send context outside the system,
+- bypass the Human Approval Gate.
+
+## Future lock file
+
+A future `skills-lock` concept may record:
+
+- skill ID,
+- version,
+- hash,
+- source,
+- review status,
+- approval date,
+- allowed project scope.
+
+This is a future hardening step, not required for the first documentation study.
+
+## Relationship to AutoSkills and Agent Skills
+
+Tools and ecosystems such as AutoSkills, GitHub Agent Skills or Claude Skills are useful research references because they show how reusable skill packages can improve agent behavior.
+
+ProfDocs AI should not copy their execution model directly.
+
+Instead, ProfDocs AI should adapt the safer ideas:
+
+- stack-aware selection,
+- manifest-based definition,
+- curated local registry,
+- reviewable instructions,
+- explicit context boundaries,
+- future lock/hash verification.
+
+## Acceptance criteria
+
+This architecture is ready to move toward contracts when:
+
+- local skills are documented,
+- manifest fields are defined,
+- safety policy is documented,
+- denied context is explicit,
+- no remote install is required,
+- no script execution is required,
+- the Human Approval Gate remains mandatory.

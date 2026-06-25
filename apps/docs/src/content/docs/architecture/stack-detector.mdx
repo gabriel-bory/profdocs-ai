@@ -1,0 +1,154 @@
+---
+title: Rule-Based Stack Detector
+description: Architecture study for detecting project stack without real AI.
+---
+
+# Rule-Based Stack Detector
+
+The **Project Stack Detector** is a future Context Engine component that identifies the technologies used in a repository through deterministic file inspection.
+
+This page documents the architecture only. It does not implement stack detection yet.
+
+## Goal
+
+The Stack Detector should help the future Skill Candidate Selector recommend relevant local skills.
+
+Example:
+
+```text
+Detected stack:
+- Angular 21
+- NestJS
+- Astro/Starlight
+- PostgreSQL 18
+- Playwright
+- GitHub Actions
+- pnpm workspaces
+- Documentation as Code
+```
+
+Recommended skills:
+
+```text
+angular-material-ui-review
+nestjs-api-architecture-review
+starlight-docs-review
+playwright-evidence-review
+context-engine-safety-review
+free-tier-deployment-review
+```
+
+## Why rule-based first
+
+ProfDocs AI should use rule-based detection before AI-based selection because it is:
+
+- free,
+- deterministic,
+- testable,
+- explainable,
+- safe,
+- suitable for CI,
+- easy to document.
+
+Real AI is not needed to detect obvious stack signals.
+
+## Candidate detection sources
+
+The detector can inspect:
+
+| Source | Purpose |
+|---|---|
+| `package.json` | Detect Angular, NestJS, Astro, Playwright, scripts and package manager. |
+| `pnpm-workspace.yaml` | Detect monorepo workspace structure. |
+| `angular.json` | Detect Angular projects and build targets. |
+| `apps/api/package.json` | Detect NestJS backend dependencies. |
+| `apps/docs/astro.config.mjs` | Detect Starlight documentation setup. |
+| `playwright.config.ts` | Detect Playwright test/evidence configuration. |
+| `docker-compose.yml` | Detect PostgreSQL and local infrastructure. |
+| `.github/workflows/` | Detect CI/CD workflows. |
+| `apps/docs/src/content/docs/adrs/` | Detect ADR-driven architecture practice. |
+
+## Detector output
+
+A future detector could produce:
+
+```ts
+type ProjectStackReport = {
+  packageManager: "pnpm" | "npm" | "yarn" | "unknown";
+  frontend: string[];
+  backend: string[];
+  documentation: string[];
+  database: string[];
+  testing: string[];
+  ci: string[];
+  architecturePractices: string[];
+  confidence: "low" | "medium" | "high";
+  evidence: StackEvidence[];
+};
+```
+
+## Stack evidence
+
+Each detected technology should include supporting evidence.
+
+Example:
+
+```ts
+type StackEvidence = {
+  technology: string;
+  sourceFile: string;
+  matchedSignal: string;
+  confidence: "low" | "medium" | "high";
+};
+```
+
+## Denied inspection targets
+
+The detector must not inspect:
+
+```text
+.env
+.env.local
+node_modules/
+dist/
+playwright-report/
+test-results/
+coverage/
+private keys
+temporary scripts unless explicitly approved
+```
+
+## Relationship to Skill Registry
+
+The detector does not execute skills. It only provides evidence.
+
+```text
+Stack Detector
+  -> Stack Report
+  -> Skill Candidate Selector
+  -> Skill Safety Policy
+  -> Human Approval Gate
+```
+
+## Level 0 behavior
+
+Level 0 can be implemented later with simple rules:
+
+- read safe config files,
+- identify dependencies,
+- identify folder structure,
+- produce a report,
+- recommend local skills,
+- never execute commands,
+- never mutate files.
+
+## Acceptance criteria
+
+The Stack Detector architecture is ready for implementation when:
+
+- safe input files are defined,
+- denied files are defined,
+- output contract is documented,
+- tests can be written without external services,
+- skill recommendation remains explainable,
+- no AI provider is required.
