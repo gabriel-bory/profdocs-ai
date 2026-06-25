@@ -270,3 +270,69 @@
     font-size: clamp(1.55rem, 10vw, 2.25rem);
   }
 }
+
+
+/* Context Engine readability refinement v2 */
+.context-engine-preview {
+  gap: clamp(0.85rem, 1.5vw, 1.15rem);
+}
+
+.context-engine-preview__header h2 {
+  max-width: 48rem;
+}
+
+.engine-card,
+.module-card,
+.roadmap-card {
+  box-shadow: 0 0.75rem 2rem rgba(15, 23, 42, 0.05);
+}
+
+.module-card strong,
+.candidate-card strong,
+.flow-list strong {
+  letter-spacing: -0.015em;
+}
+
+.module-card p,
+.engine-card p,
+.flow-list span,
+.candidate-card span {
+  font-size: clamp(0.78rem, 0.9vw, 0.92rem);
+}
+
+.module-grid {
+  grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+}
+
+.context-grid {
+  align-items: stretch;
+}
+
+.engine-card--code pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+@media (max-width: 760px) {
+  .context-engine-preview__header h2,
+  .engine-card h3,
+  .roadmap-card h3 {
+    letter-spacing: -0.045em;
+  }
+
+  .module-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 420px) {
+  .module-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pill-row span,
+  .approval-actions span,
+  .source {
+    font-size: 0.68rem;
+  }
+}

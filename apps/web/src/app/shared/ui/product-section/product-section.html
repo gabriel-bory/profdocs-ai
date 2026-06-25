@@ -1,0 +1,17 @@
+<section
+  class="product-section"
+  [class.product-section--hero]="variant() === 'hero'"
+  [class.product-section--future]="variant() === 'future'"
+  [attr.id]="sectionId()"
+  [attr.aria-labelledby]="headingId()"
+>
+  <div class="product-section__content">
+    <p class="section-eyebrow">{{ eyebrow() }}</p>
+    <h2 [id]="headingId()">{{ title() }}</h2>
+    <ng-content select="[product-description]"></ng-content>
+  </div>
+
+  <div class="product-section__aside">
+    <ng-content select="[product-aside]"></ng-content>
+  </div>
+</section>

@@ -131,6 +131,10 @@ export default defineConfig({
               slug: "architecture/cloud-free-tier-strategy",
             },
             { label: "Frontend Architecture", slug: "architecture/frontend-architecture" },
+            {
+              label: "Web Shell Visual System",
+              slug: "architecture/web-shell-visual-system",
+            },
             { label: "Config-Driven UI", slug: "architecture/config-driven-ui" },
             { label: "Database Model", slug: "architecture/database-model" },
           ],

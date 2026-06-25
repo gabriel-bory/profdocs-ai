@@ -1,0 +1,69 @@
+---
+title: Web Shell Visual System
+description: UI shell refactor for navigation semantics, local icons and centralized visual styling.
+---
+
+# Web Shell Visual System
+
+This page documents the shell-level visual refactor for the Angular web app.
+
+## Goals
+
+The refactor improves the app shell without changing the product scope.
+
+It focuses on:
+
+- clearer product navigation,
+- removing numeric navigation labels,
+- local inline SVG icons instead of external CDN icons,
+- stronger typographic hierarchy,
+- softer light-mode gradients,
+- consistent radii, spacing and surfaces,
+- reusable projected layout sections.
+
+## Angular implementation
+
+The refactor keeps the Angular implementation aligned with the current project architecture:
+
+- standalone component style,
+- `ChangeDetectionStrategy.OnPush`,
+- `input()` for reusable component inputs,
+- native Angular control flow blocks such as `@for` and `@switch`,
+- class bindings instead of `NgClass`,
+- content projection with `ng-content`,
+- SCSS centralized where possible under `apps/web/src/styles`.
+
+## New reusable UI primitive
+
+The refactor adds:
+
+```text
+apps/web/src/app/shared/ui/product-section/
+```
+
+This component uses content projection for the shell hero and roadmap sections.
+
+It provides a reusable layout primitive while keeping domain-specific content in the shell template.
+
+## Visual system files
+
+The visual decisions are centralized in:
+
+```text
+apps/web/src/styles/_visual-system-overrides.scss
+apps/web/src/styles/_app-shell-layout.scss
+```
+
+## Scope boundaries
+
+This refactor does not implement:
+
+- real AI,
+- RAG,
+- embeddings,
+- pgvector,
+- backend Context Engine runtime,
+- provider calls,
+- command execution.
+
+The app remains a mock-first Angular product preview.
