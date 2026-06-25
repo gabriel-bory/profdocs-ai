@@ -1,0 +1,89 @@
+---
+title: Web Context Engine Preview
+description: Angular mock preview implementation plan for the ProfDocs AI Context Engine.
+---
+
+# Web Context Engine Preview
+
+This page documents the first Angular preview for the ProfDocs AI Context Engine.
+
+The implementation is inspired by the Stitch-generated Context Engine screens, especially:
+
+- Context Engine Workspace.
+- Context Engine Overview.
+- Skill Library & Stack-Aware Selection.
+- Human Approval Gate.
+- Context Sources & Safety Audit.
+- Provider Mode & AI Roadmap.
+
+## Scope
+
+This phase adds a new Angular feature page:
+
+```text
+apps/web/src/app/features/context-engine/pages/context-engine-preview-page
+```
+
+The page consumes the shared mock contracts from:
+
+```text
+@profdocs-ai/shared/context-engine
+```
+
+## What the preview shows
+
+The preview displays:
+
+- the current mock provider mode,
+- selected local skill,
+- prompt intent,
+- response plan,
+- human approval status,
+- trusted and excluded context sources,
+- skill candidates,
+- safety notes,
+- implementation roadmap.
+
+## What it does not implement
+
+This phase does not implement:
+
+- real AI,
+- RAG,
+- embeddings,
+- pgvector,
+- Ollama,
+- GitHub Models,
+- ChromaDB,
+- Neo4j,
+- CrewAI,
+- autonomous agents,
+- automatic skill installation,
+- shell execution,
+- backend Context Engine services.
+
+## Angular architecture
+
+The implementation follows the current Angular direction:
+
+- standalone component,
+- Angular Material cards/buttons,
+- SCSS,
+- typed data from `@profdocs-ai/shared`,
+- no direct backend calls,
+- no provider calls,
+- no command execution.
+
+## Validation
+
+Recommended validation commands:
+
+```bash
+pnpm build:shared
+pnpm test:shared
+pnpm build:web
+pnpm build:docs
+pnpm build:api
+```
+
+The known Angular initial bundle warning is not caused by this feature and remains non-blocking while the build succeeds.

@@ -9,6 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { distinctUntilChanged, map } from 'rxjs';
 
 import { DashboardPageComponent } from '../../../features/dashboard/pages/dashboard-page/dashboard-page';
+import { ContextEnginePreviewPageComponent } from '../../../features/context-engine/pages/context-engine-preview-page/context-engine-preview-page';
 import { DocumentLibraryPageComponent } from '../../../features/documents/pages/document-library-page/document-library-page';
 import { ThemeService } from '../../theme/theme.service';
 
@@ -20,6 +21,7 @@ import { ThemeService } from '../../theme/theme.service';
     MatSidenavModule,
     MatToolbarModule,
     DashboardPageComponent,
+    ContextEnginePreviewPageComponent,
     DocumentLibraryPageComponent,
   ],
   templateUrl: './app-shell.html',
@@ -65,9 +67,10 @@ export class AppShellComponent {
 
   protected readonly navigationItems = [
     { label: 'Dashboard', href: '#dashboard', marker: '01' },
-    { label: 'Documents', href: '#documents', marker: '02' },
-    { label: 'Upload', href: '#upload-preview', marker: '03' },
-    { label: 'AI Preview', href: '#ai-preview', marker: '04' },
+    { label: 'Context Engine', href: '#context-engine', marker: '02' },
+    { label: 'Documents', href: '#documents', marker: '03' },
+    { label: 'Upload', href: '#upload-preview', marker: '04' },
+    { label: 'AI Preview', href: '#ai-preview', marker: '05' },
   ];
 
   protected toggleTheme(): void {
