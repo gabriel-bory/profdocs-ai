@@ -9,7 +9,14 @@
       </p>
     </div>
 
-    <button class="upload-action" mat-flat-button type="button">Upload document</button>
+    <button class="upload-action upload-action--primary" mat-flat-button type="button" aria-label="Upload document">
+      <span class="button-content">
+        <svg class="button-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+          <path d="M12 3 7 8h3v5h4V8h3l-5-5ZM5 15h14v5H5v-5Zm3 2v1h8v-1H8Z" />
+        </svg>
+        <span>Upload document</span>
+      </span>
+    </button>
   </div>
 
   @if (isLoading()) {

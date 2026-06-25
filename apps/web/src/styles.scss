@@ -1,4 +1,5 @@
 @use './styles/app-shell-layout';
+@use './styles/visual-system-overrides';
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 /*
@@ -292,3 +293,4 @@ html[data-theme='dark'] .profdocs-select-panel .mat-pseudo-checkbox-minimal.mat-
 html.dark-theme .profdocs-select-panel .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
   color: var(--pd-primary) !important;
 }
+
