@@ -2,7 +2,7 @@
   "name": "profdocs-ai",
   "version": "0.1.0",
   "private": true,
-  "description": "Full-stack AI document intelligence platform built with Angular, NestJS, PostgreSQL, pgvector, Docker and RAG.",
+  "description": "Full-stack professional document intelligence and context-engine platform built with Angular, NestJS, PostgreSQL, Docker and Documentation as Code.",
   "license": "MIT",
   "author": "Gabriel Bory Prevez",
   "packageManager": "pnpm@11.7.0",
@@ -24,7 +24,9 @@
     "docs:manual:evidence": "pnpm e2e:manual",
     "docs:manual:build": "pnpm docs:manual:evidence && pnpm build:docs",
     "docs:manual:export": "node scripts/docs/export-user-manual.mjs",
-    "docs:manual:export:full": "pnpm docs:manual:build && pnpm docs:manual:export && pnpm build:docs"
+    "docs:manual:export:full": "pnpm docs:manual:build && pnpm docs:manual:export && pnpm build:docs",
+    "build:shared": "pnpm --filter @profdocs-ai/shared build",
+    "typecheck:shared": "pnpm --filter @profdocs-ai/shared typecheck"
   },
   "keywords": [
     "angular",
@@ -36,7 +38,11 @@
     "ai",
     "docker",
     "monorepo",
-    "portfolio"
+    "portfolio",
+    "context-engine",
+    "skill-registry",
+    "prompt-orchestrator",
+    "documentation-as-code"
   ],
   "devDependencies": {
     "@commitlint/cli": "^21.0.2",

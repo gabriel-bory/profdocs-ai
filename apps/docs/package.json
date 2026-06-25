@@ -8,10 +8,9 @@
     "build": "astro build",
     "preview": "astro preview"
   },
-  "dependencies": {
-    "@astrojs/starlight": "latest"
-  },
   "devDependencies": {
+    "@astrojs/mdx": "6.0.3",
+    "@astrojs/starlight": "0.40.0",
     "astro": "6.4.5"
   }
 }

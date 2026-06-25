@@ -1,0 +1,126 @@
+---
+title: Prompt Orchestrator Contracts
+description: Shared TypeScript contract foundation for the future ProfDocs AI Context Engine.
+---
+
+# Prompt Orchestrator Contracts
+
+This page documents the first code-oriented foundation for the future **ProfDocs AI Context Engine**.
+
+The goal of this phase is to introduce shared TypeScript contracts without implementing real AI runtime behavior.
+
+## Scope
+
+This phase adds a shared package:
+
+```text
+packages/shared
+```
+
+The package contains contracts for:
+
+- Project Stack Detector.
+- Local Skill Registry.
+- Skill Manifest.
+- Skill Candidate Selection.
+- Prompt Request.
+- Prompt Intent.
+- Prompt Rewrite Result.
+- Response Plan.
+- Human Approval Request.
+- Mock Provider Response.
+
+## Important boundary
+
+This phase does **not** implement:
+
+- real AI,
+- RAG,
+- embeddings,
+- pgvector,
+- Ollama,
+- GitHub Models,
+- ChromaDB,
+- Neo4j,
+- CrewAI,
+- autonomous agents,
+- shell execution,
+- automatic skill installation,
+- backend runtime behavior.
+
+## Why shared contracts first
+
+ProfDocs AI needs stable contracts before adding Angular UI or NestJS services.
+
+This keeps the next implementation phases safer:
+
+```text
+Shared contracts
+  -> Mock Provider
+  -> Rule-based Skill Selector
+  -> Angular Context Engine Preview
+  -> Safe Repo Context Retriever
+  -> Future RAG
+```
+
+## Package exports
+
+The shared package exposes:
+
+```ts
+import type {
+  ProjectStackReport,
+  SkillManifest,
+  PromptRequest,
+  PromptIntent,
+  PromptRewriteResult,
+  ResponsePlan,
+  HumanApprovalRequest,
+  MockProviderResponse,
+} from "@profdocs-ai/shared/context-engine";
+```
+
+## Angular direction
+
+When these contracts are later used in Angular, the frontend should continue following the current project patterns:
+
+- standalone components,
+- Angular Material/CDK,
+- SCSS,
+- Signals where useful,
+- smart/container components,
+- presentational components,
+- typed view models,
+- config-driven rendering,
+- Playwright visual evidence.
+
+The Angular UI must not execute commands or call real providers directly.
+
+## Backend direction
+
+The NestJS backend has no Context Engine runtime yet.
+
+The next backend step should be:
+
+- DTOs,
+- interfaces,
+- mock services,
+- unit tests,
+- no real provider,
+- no RAG,
+- no pgvector,
+- no command execution.
+
+## Validation
+
+Recommended validation commands:
+
+```bash
+pnpm install
+pnpm build:shared
+pnpm build:docs
+pnpm build:web
+pnpm build:api
+```
+
+The Angular bundle warning is currently known and does not block this phase if the build finishes successfully.
