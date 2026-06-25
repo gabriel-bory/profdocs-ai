@@ -115,6 +115,10 @@ export default defineConfig({
               slug: "architecture/prompt-orchestrator-contracts",
             },
             {
+              label: "Mock Skill Selector",
+              slug: "architecture/mock-skill-selector",
+            },
+            {
               label: "Cloud Free-Tier Strategy",
               slug: "architecture/cloud-free-tier-strategy",
             },

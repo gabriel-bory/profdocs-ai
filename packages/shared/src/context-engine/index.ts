@@ -4,4 +4,6 @@ export * from "./skill-registry.types.js";
 export * from "./prompt-orchestrator.types.js";
 export * from "./human-approval.types.js";
 export * from "./mock-provider.types.js";
+export * from "./mock-skill-selector.js";
+export * from "./mock-prompt-orchestrator.js";
 export * from "./fixtures.js";

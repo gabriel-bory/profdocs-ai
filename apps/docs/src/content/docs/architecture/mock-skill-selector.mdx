@@ -1,0 +1,102 @@
+---
+title: Mock Skill Selector
+description: First mock and rule-based selector layer for the future ProfDocs AI Context Engine.
+---
+
+# Mock Skill Selector
+
+This page documents the first safe behavior layer built on top of the shared Context Engine contracts.
+
+The **Mock Skill Selector** introduces deterministic, rule-based selection of local skills. It does not use real AI providers, embeddings, RAG, agents, shell execution or backend runtime behavior.
+
+## Scope
+
+This phase adds:
+
+```text
+packages/shared/src/context-engine/mock-skill-selector.ts
+packages/shared/src/context-engine/mock-prompt-orchestrator.ts
+```
+
+The goal is to prove that the Context Engine contracts can support a safe flow:
+
+```text
+PromptRequest
+  -> Mock intent
+  -> Local skill selection
+  -> Mock response plan
+  -> Human approval request
+```
+
+## What it does
+
+The mock selector can:
+
+- normalize a prompt,
+- compare prompt text with local skill triggers,
+- score local skill manifests,
+- return ranked candidates,
+- select the best local skill,
+- explain the selection,
+- preserve Mock Provider mode,
+- require Human Approval Gate.
+
+## What it does not do
+
+This phase does not implement:
+
+- real AI,
+- real model providers,
+- embeddings,
+- semantic search,
+- pgvector,
+- RAG,
+- CrewAI,
+- autonomous agents,
+- shell execution,
+- automatic skill installation,
+- backend runtime services,
+- Angular UI changes.
+
+## Safety behavior
+
+Every result keeps these boundaries:
+
+- `providerMode: "mock"`
+- `requiresHumanApproval: true`
+- validation commands are suggestions only
+- no command is executed
+- denied context remains explicit
+- response plans are reviewable, not automatic
+
+## Example usage
+
+```ts
+import {
+  PROFDOCS_CURRENT_STACK_REPORT,
+  PROFDOCS_LOCAL_SKILL_REGISTRY,
+  selectMockSkill,
+} from "@profdocs-ai/shared/context-engine";
+
+const result = selectMockSkill({
+  prompt: "Improve Playwright evidence and document it.",
+  requestedArea: "playwright",
+  stackReport: PROFDOCS_CURRENT_STACK_REPORT,
+  skills: PROFDOCS_LOCAL_SKILL_REGISTRY.skills,
+});
+```
+
+## Why this comes before backend runtime
+
+The NestJS backend does not yet implement Context Engine services.
+
+Starting in `packages/shared` keeps the first behavior small, testable and reusable by both future Angular UI and future NestJS modules.
+
+## Next step
+
+After this phase, ProfDocs AI can add one of the following:
+
+- mock selector unit tests,
+- NestJS mock service wrapper,
+- Angular Context Engine Preview using mock data,
+- safe repository context retriever.
