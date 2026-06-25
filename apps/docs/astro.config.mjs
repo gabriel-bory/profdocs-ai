@@ -47,6 +47,10 @@ export default defineConfig({
               label: "Stitch Design Review v1",
               slug: "product/stitch-design-review-v1",
             },
+            {
+              label: "Context Engine UI Study",
+              slug: "product/context-engine-ui-study-v1",
+            },
           ],
         },        {
           label: "User Manual",
