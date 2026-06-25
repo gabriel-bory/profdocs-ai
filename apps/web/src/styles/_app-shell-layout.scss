@@ -330,7 +330,7 @@ app-shell {
       bottom: 0.75rem;
       left: 0.75rem;
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(4.25rem, 1fr));
       gap: 0.25rem;
       border: 1px solid var(--pd-border);
       border-radius: 1.25rem;
@@ -474,6 +474,7 @@ app-shell {
   }
 
   #dashboard,
+  #context-engine,
   #documents,
   #upload-preview,
   #ai-preview {

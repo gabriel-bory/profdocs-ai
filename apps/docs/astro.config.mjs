@@ -51,6 +51,10 @@ export default defineConfig({
               label: "Context Engine UI Study",
               slug: "product/context-engine-ui-study-v1",
             },
+            {
+              label: "Web Context Engine Preview",
+              slug: "product/web-context-engine-preview",
+            },
 
             {
               label: "Assistant Evolution Roadmap",

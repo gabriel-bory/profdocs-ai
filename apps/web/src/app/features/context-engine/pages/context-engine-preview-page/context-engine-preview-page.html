@@ -1,0 +1,124 @@
+<section id="context-engine" class="context-engine-preview" aria-labelledby="context-engine-title">
+  <div class="context-engine-preview__header">
+    <div>
+      <p class="section-eyebrow">Context Engine Preview</p>
+      <h2 id="context-engine-title">Safe orchestration workspace</h2>
+      <p>
+        A typed Angular mock inspired by the Stitch Context Engine screens. It shows how ProfDocs AI
+        can select local skills, rewrite prompts and require human approval before future AI actions.
+      </p>
+    </div>
+
+    <div class="mode-card" aria-label="Current provider mode">
+      <span class="mode-card__label">Provider mode</span>
+      <strong>{{ preview.skillSelection.providerMode }}</strong>
+      <span>Human approval: {{ preview.skillSelection.requiresHumanApproval ? 'required' : 'not required' }}</span>
+    </div>
+  </div>
+
+  <div class="context-grid context-grid--hero">
+    <mat-card class="engine-card engine-card--primary">
+      <p class="section-eyebrow">Original request</p>
+      <h3>{{ preview.request.userPrompt }}</h3>
+      <div class="pill-row" aria-label="Request metadata">
+        <span>{{ preview.intent.primaryArea }}</span>
+        <span>{{ preview.intent.riskLevel }} risk</span>
+        <span>{{ preview.intent.confidence * 100 | number: '1.0-0' }}% confidence</span>
+      </div>
+    </mat-card>
+
+    <mat-card class="engine-card">
+      <p class="section-eyebrow">Selected local skill</p>
+      <h3>{{ selectedSkillName }}</h3>
+      <p>{{ selectedSkillRationale }}</p>
+      <div class="score-meter" aria-label="Selected skill score">
+        <span [style.width.%]="selectedSkillScore * 100"></span>
+      </div>
+    </mat-card>
+
+    <mat-card class="engine-card approval-card">
+      <p class="section-eyebrow">Human Approval Gate</p>
+      <h3>{{ preview.humanApproval.status }}</h3>
+      <p>Available actions stay manual and reviewable.</p>
+      <div class="approval-actions">
+        @for (action of preview.humanApproval.availableActions.slice(0, 4); track action) {
+          <span>{{ action }}</span>
+        }
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="module-grid" aria-label="Context Engine module status">
+    @for (module of moduleCards; track module.label) {
+      <mat-card class="module-card" [class.module-card--future]="module.tone === 'future'">
+        <span class="module-card__tone">{{ module.tone }}</span>
+        <strong>{{ module.label }}</strong>
+        <span class="module-card__value">{{ module.value }}</span>
+        <p>{{ module.helper }}</p>
+      </mat-card>
+    }
+  </div>
+
+  <div class="context-grid">
+    <mat-card class="engine-card">
+      <p class="section-eyebrow">Response plan</p>
+      <h3>{{ preview.responsePlan.summary }}</h3>
+      <ol class="flow-list">
+        @for (step of preview.responsePlan.steps; track step.id) {
+          <li>
+            <strong>{{ step.title }}</strong>
+            <span>{{ step.description }}</span>
+          </li>
+        }
+      </ol>
+    </mat-card>
+
+    <mat-card class="engine-card">
+      <p class="section-eyebrow">Context sources</p>
+      <h3>Trusted and excluded context</h3>
+      <div class="source-list">
+        @for (source of preview.responsePlan.contextSources; track source.path) {
+          <span class="source source--trusted">{{ source.path }}</span>
+        }
+        @for (source of preview.responsePlan.excludedSources; track source.path) {
+          <span class="source source--blocked">{{ source.path }}</span>
+        }
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="context-grid">
+    <mat-card class="engine-card">
+      <p class="section-eyebrow">Skill candidates</p>
+      <h3>Local registry selection</h3>
+      <div class="candidate-list">
+        @for (candidate of preview.skillSelection.candidates; track candidate.manifest.id) {
+          <article class="candidate-card" [class.candidate-card--selected]="candidate.manifest.id === selectedSkillId">
+            <div>
+              <strong>{{ candidate.manifest.name }}</strong>
+              <span>{{ candidate.manifest.id }}</span>
+            </div>
+            <span>{{ candidate.score * 100 | number: '1.0-0' }}%</span>
+          </article>
+        }
+      </div>
+    </mat-card>
+
+    <mat-card class="engine-card engine-card--code">
+      <p class="section-eyebrow">Safety notes</p>
+      <pre>{{ safetySnapshot }}</pre>
+    </mat-card>
+  </div>
+
+  <mat-card class="roadmap-card">
+    <div>
+      <p class="section-eyebrow">Implementation roadmap</p>
+      <h3>What this preview proves</h3>
+    </div>
+    <ul>
+      @for (item of roadmap; track item) {
+        <li>{{ item }}</li>
+      }
+    </ul>
+  </mat-card>
+</section>
