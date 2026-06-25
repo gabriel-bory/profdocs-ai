@@ -26,7 +26,8 @@
     "docs:manual:export": "node scripts/docs/export-user-manual.mjs",
     "docs:manual:export:full": "pnpm docs:manual:build && pnpm docs:manual:export && pnpm build:docs",
     "build:shared": "pnpm --filter @profdocs-ai/shared build",
-    "typecheck:shared": "pnpm --filter @profdocs-ai/shared typecheck"
+    "typecheck:shared": "pnpm --filter @profdocs-ai/shared typecheck",
+    "test:shared": "pnpm --filter @profdocs-ai/shared test"
   },
   "keywords": [
     "angular",
