@@ -119,6 +119,10 @@ export default defineConfig({
               slug: "architecture/mock-skill-selector",
             },
             {
+              label: "Mock Skill Selector Tests",
+              slug: "architecture/mock-skill-selector-tests",
+            },
+            {
               label: "Cloud Free-Tier Strategy",
               slug: "architecture/cloud-free-tier-strategy",
             },

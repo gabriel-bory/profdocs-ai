@@ -1,0 +1,79 @@
+---
+title: Mock Skill Selector Tests
+description: Test coverage for the deterministic mock Context Engine flow.
+---
+
+# Mock Skill Selector Tests
+
+This page documents the test foundation for the deterministic mock Context Engine layer.
+
+The goal is to validate behavior in `packages/shared` before the mock flow is used by Angular or NestJS.
+
+## Scope
+
+This phase adds Node test files:
+
+```text
+packages/shared/tests/mock-skill-selector.test.mjs
+packages/shared/tests/mock-prompt-orchestrator.test.mjs
+```
+
+The tests run against the compiled shared package output:
+
+```text
+packages/shared/dist
+```
+
+## Why Node test runner
+
+This phase intentionally avoids adding a new test dependency.
+
+The shared package uses:
+
+```text
+node --test
+```
+
+This keeps the project lighter and avoids introducing Vitest/Jest before there is a stronger need.
+
+## What is tested
+
+The tests validate that:
+
+- prompts are normalized deterministically,
+- local skills can be selected by prompt and project area,
+- selected skills preserve `providerMode: "mock"`,
+- selected flows preserve `requiresHumanApproval: true`,
+- rejected candidates are produced when thresholds are high,
+- explanations include safety boundaries,
+- mock prompt rewrites do not claim real AI usage,
+- response plans contain suggestion-only validation commands,
+- Human Approval requests remain pending by default,
+- the full mock orchestrator preview returns a safe reviewable flow.
+
+## What is not tested yet
+
+This phase does not test:
+
+- Angular UI,
+- NestJS services,
+- providers,
+- embeddings,
+- RAG,
+- shell execution,
+- file mutation,
+- browser behavior.
+
+## Validation
+
+Recommended validation commands:
+
+```bash
+pnpm test:shared
+pnpm build:shared
+pnpm build:docs
+pnpm build:web
+pnpm build:api
+```
+
+The Angular bundle warning is still known and does not block this phase if the build succeeds.
