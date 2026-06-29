@@ -1,0 +1,95 @@
+---
+title: Context Engine Preview Evidence
+description: Visual evidence generated with Playwright for the ProfDocs AI Context Engine Preview.
+---
+
+# Context Engine Preview Evidence
+
+This page documents the current visual evidence generated for the **ProfDocs AI Context Engine Preview**.
+
+The evidence was generated with Playwright after the web shell visual-system refactor. It validates that the Context Engine Preview can be reviewed in desktop and mobile viewports, in both light and dark mode.
+
+:::note[Scope]
+
+This evidence is visual and documentation-oriented.
+
+It does **not** prove real AI execution, real RAG, embeddings, document ingestion, external provider integration, pgvector storage, autonomous agents, or backend runtime behavior.
+
+The current Context Engine Preview remains a mock-only and architecture-preview UI.
+
+:::
+
+## Evidence summary
+
+| Area | Coverage |
+| --- | --- |
+| UI section | Context Engine Preview |
+| Tooling | Playwright |
+| Viewports | Desktop and mobile |
+| Themes | Light and dark |
+| Runtime boundary | Mock-only |
+| Purpose | Visual validation and documentation evidence |
+
+## Desktop evidence
+
+### Desktop — Light mode
+
+<figure class="evidence-figure">
+  <img src="../../evidence/context-engine-preview/context-engine-preview-desktop-light.png" alt="Context Engine Preview desktop light mode" loading="lazy" />
+</figure>
+
+### Desktop — Dark mode
+
+<figure class="evidence-figure">
+  <img src="../../evidence/context-engine-preview/context-engine-preview-desktop-dark.png" alt="Context Engine Preview desktop dark mode" loading="lazy" />
+</figure>
+
+## Mobile evidence
+
+### Mobile — Light mode
+
+<figure class="evidence-figure">
+  <img src="../../evidence/context-engine-preview/context-engine-preview-mobile-light.png" alt="Context Engine Preview mobile light mode" loading="lazy" />
+</figure>
+
+### Mobile — Dark mode
+
+<figure class="evidence-figure">
+  <img src="../../evidence/context-engine-preview/context-engine-preview-mobile-dark.png" alt="Context Engine Preview mobile dark mode" loading="lazy" />
+</figure>
+
+## What this validates
+
+The generated evidence helps validate that the current UI communicates the intended product direction:
+
+- a safe orchestration workspace;
+- local registry selection before external skills;
+- human approval boundaries;
+- mock-only Context Engine behavior;
+- responsive presentation across desktop and mobile;
+- light and dark mode support.
+
+## What this does not validate yet
+
+This evidence does not validate backend execution or production AI capabilities.
+
+The following areas remain future implementation work:
+
+- real document upload and ingestion;
+- text extraction pipeline;
+- embeddings generation;
+- pgvector indexing;
+- semantic retrieval;
+- provider abstraction;
+- real RAG responses;
+- audit logs;
+- authorization and persistence;
+- human approval workflow connected to backend state.
+
+## Related documentation
+
+- [Context Engine architecture](../../architecture/context-engine/)
+- [Prompt Orchestrator contracts](../../architecture/prompt-orchestrator-contracts/)
+- [Mock Skill Selector](../../architecture/mock-skill-selector/)
+- [Context Engine UI study](../context-engine-ui-study-v1/)
+- [Web Context Engine Preview](../web-context-engine-preview/)
