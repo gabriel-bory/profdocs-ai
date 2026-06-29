@@ -55,6 +55,10 @@ export default defineConfig({
               label: "Web Context Engine Preview",
               slug: "product/web-context-engine-preview",
             },
+            {
+              label: "Context Engine Evidence",
+              slug: "product/context-engine-preview-evidence",
+            },
 
             {
               label: "Assistant Evolution Roadmap",

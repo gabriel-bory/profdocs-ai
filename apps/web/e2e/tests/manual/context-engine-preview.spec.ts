@@ -20,36 +20,81 @@ function evidencePath(testInfo: TestInfo, theme: EvidenceTheme): string {
   );
 }
 
-async function setTheme(page: Page, theme: EvidenceTheme): Promise<void> {
-  const toggleToDark = page.getByRole('button', { name: /dark/i }).first();
-  const toggleToLight = page.getByRole('button', { name: /light/i }).first();
+async function openContextEngine(page: Page): Promise<void> {
+  await page.goto('/');
+  await page.waitForLoadState('networkidle');
 
-  if (theme === 'dark' && (await toggleToDark.isVisible().catch(() => false))) {
-    await toggleToDark.click();
+  const heading = page.getByRole('heading', {
+    name: /Safe orchestration workspace/i,
+  });
+
+  await heading.scrollIntoViewIfNeeded();
+
+  await page.evaluate(() => {
+    const heading = Array.from(document.querySelectorAll('h1, h2, h3')).find(
+      (element) =>
+        element.textContent?.toLowerCase().includes('safe orchestration workspace'),
+    );
+
+    if (!heading) {
+      return;
+    }
+
+    const top = heading.getBoundingClientRect().top + window.scrollY - 96;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
+  });
+
+  await page.waitForTimeout(500);
+
+  await expect(heading).toBeVisible();
+  await expect(page.getByText(/Local registry selection/i)).toBeVisible();
+  await expect(page.getByText(/Human Approval Gate/i)).toBeVisible();
+}
+
+async function clickThemeAction(page: Page, label: RegExp): Promise<boolean> {
+  const candidates = [
+    page.getByRole('button', { name: label }).first(),
+    page.locator('button').filter({ hasText: label }).first(),
+    page.getByText(label).first(),
+  ];
+
+  for (const candidate of candidates) {
+    if (await candidate.isVisible().catch(() => false)) {
+      await candidate.click();
+      await page.waitForTimeout(600);
+      return true;
+    }
   }
 
-  if (theme === 'light' && (await toggleToLight.isVisible().catch(() => false))) {
-    await toggleToLight.click();
+  return false;
+}
+
+async function setTheme(page: Page, theme: EvidenceTheme): Promise<void> {
+  if (theme === 'light') {
+    await clickThemeAction(page, /light/i);
+  }
+
+  if (theme === 'dark') {
+    await clickThemeAction(page, /dark/i);
   }
 
   await page.waitForTimeout(500);
 }
 
-async function openContextEngine(page: Page) {
-  await page.goto('/');
-  await page.waitForLoadState('networkidle');
+async function captureViewportEvidence(
+  page: Page,
+  testInfo: TestInfo,
+  theme: EvidenceTheme,
+): Promise<void> {
+  await openContextEngine(page);
+  await setTheme(page, theme);
+  await openContextEngine(page);
 
-  const section = page.locator('#context-engine');
-  await section.scrollIntoViewIfNeeded();
-
-  await expect(
-    section.getByRole('heading', { name: /Safe orchestration workspace/i }),
-  ).toBeVisible();
-
-  await expect(section.getByText(/Local registry selection/i)).toBeVisible();
-  await expect(section.getByText(/Human Approval Gate/i)).toBeVisible();
-
-  return section;
+  await page.screenshot({
+    path: evidencePath(testInfo, theme),
+    fullPage: false,
+    animations: 'disabled',
+  });
 }
 
 test.describe('Context Engine Preview visual evidence', () => {
@@ -57,17 +102,10 @@ test.describe('Context Engine Preview visual evidence', () => {
     mkdirSync(evidenceDir, { recursive: true });
   });
 
-  test('captures polished Context Engine section in light and dark mode', async ({
+  test('captures polished Context Engine viewport evidence in light and dark mode', async ({
     page,
   }, testInfo) => {
-    const section = await openContextEngine(page);
-
-    await setTheme(page, 'light');
-    await section.scrollIntoViewIfNeeded();
-    await section.screenshot({ path: evidencePath(testInfo, 'light') });
-
-    await setTheme(page, 'dark');
-    await section.scrollIntoViewIfNeeded();
-    await section.screenshot({ path: evidencePath(testInfo, 'dark') });
+    await captureViewportEvidence(page, testInfo, 'light');
+    await captureViewportEvidence(page, testInfo, 'dark');
   });
 });
