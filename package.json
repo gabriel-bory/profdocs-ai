@@ -27,7 +27,8 @@
     "docs:manual:export:full": "pnpm docs:manual:build && pnpm docs:manual:export && pnpm build:docs",
     "build:shared": "pnpm --filter @profdocs-ai/shared build",
     "typecheck:shared": "pnpm --filter @profdocs-ai/shared typecheck",
-    "test:shared": "pnpm --filter @profdocs-ai/shared test"
+    "test:shared": "pnpm --filter @profdocs-ai/shared test",
+    "e2e:context-engine": "playwright test -c apps/web/e2e/playwright.config.ts apps/web/e2e/tests/manual/context-engine-preview.spec.ts --project=manual-chromium-desktop --project=manual-mobile-chrome"
   },
   "keywords": [
     "angular",
